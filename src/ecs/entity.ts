@@ -5,17 +5,17 @@ export default function EntityManager() {
 
   return {
     create(): Entity {
-      return {
+      const entity = {
         components: new Map<string, Component>(),
       };
+
+      entities.add(entity);
+
+      return entity;
     },
 
     get() {
       return entities;
-    },
-
-    add(entity: Entity) {
-      return entities.add(entity);
     },
   };
 }

@@ -7,14 +7,10 @@ interface Renderer extends Component {
 
 const name = 'renderer';
 
-export function addRenderer(view: DisplayObject) {
-  const entity = ECS.entity.create();
-
+export function addRenderer(entity: Entity, view: DisplayObject) {
   const renderer: Renderer = { name, view };
 
   ECS.component.add(renderer, entity);
-
-  ECS.entity.add(entity);
 }
 
 export function RenderSystem(app: Application): System {

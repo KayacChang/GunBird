@@ -14,5 +14,7 @@ export default async function main(app: Application) {
   const marion = Character();
   marion.x = app.screen.width / 2;
   marion.y = app.screen.height / 2;
-  addRenderer(marion);
+
+  const entity = ECS.entity.create();
+  addRenderer(entity, marion);
 }
