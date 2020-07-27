@@ -1,11 +1,24 @@
-import { Size } from './common';
+import { Pair, Size } from './common';
 
 type SCREEN = 'VGA' | 'SVGA' | 'XGA' | 'HD' | 'FULL_HD';
+type ORIENTATION = 'Portrait' | 'Landscape';
 
-export const SCREEN_RESOLUTION: Record<SCREEN, Size> = Object.freeze({
-  VGA: { width: 640, height: 480 },
-  SVGA: { width: 800, height: 600 },
-  XGA: { width: 1024, height: 768 },
-  HD: { width: 1280, height: 720 },
-  FULL_HD: { width: 1920, height: 1080 },
+const RESOLUTION: Record<SCREEN, Pair> = Object.freeze({
+  VGA: [640, 480],
+  SVGA: [800, 600],
+  XGA: [1024, 768],
+  HD: [1280, 720],
+  FULL_HD: [1920, 1080],
 });
+
+export function resolution(screen: SCREEN, orientation: ORIENTATION = 'Landscape'): Size {
+  if (orientation === 'Portrait') {
+    const [height, width] = RESOLUTION[screen];
+
+    return { height, width };
+  }
+
+  const [width, height] = RESOLUTION[screen];
+
+  return { width, height };
+}
