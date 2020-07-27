@@ -1,0 +1,51 @@
+{"frames": {
+
+"marion-29.png":
+{
+	"frame": {"x":1,"y":1,"w":22,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":0,"w":22,"h":32},
+	"sourceSize": {"w":31,"h":32},
+	"anchor": {"x":0.451613,"y":0.5}
+},
+"marion-30.png":
+{
+	"frame": {"x":1,"y":35,"w":22,"h":32},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":0,"w":22,"h":32},
+	"sourceSize": {"w":31,"h":32},
+	"anchor": {"x":0.483871,"y":0.5}
+},
+"marion-31.png":
+{
+	"frame": {"x":35,"y":25,"w":20,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":0,"w":20,"h":32},
+	"sourceSize": {"w":31,"h":32},
+	"anchor": {"x":0.483871,"y":0.5}
+},
+"marion-32.png":
+{
+	"frame": {"x":25,"y":1,"w":22,"h":32},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":0,"w":22,"h":32},
+	"sourceSize": {"w":31,"h":32},
+	"anchor": {"x":0.548387,"y":0.5}
+}},
+"animations": {
+	"marion": ["marion-29.png","marion-30.png","marion-31.png","marion-32.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "marion-idle.png",
+	"format": "RGBA8888",
+	"size": {"w":58,"h":58},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:1687ba65acab60890d27760c7e6ab379:b149e24642083cad15ff81a594615a72:750efd990b2ab42bfdb7182095124ea3$"
+}
+}
