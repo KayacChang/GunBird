@@ -1,8 +1,6 @@
 import { System } from './types';
 
-export default function SystemManager() {
-  const systems: Set<System> = new Set();
-
+export default function SystemManager(systems: Set<System>) {
   return {
     get() {
       return systems;

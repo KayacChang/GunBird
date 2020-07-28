@@ -15,7 +15,7 @@ export function addRenderer(entity: Entity, view: DisplayObject) {
 
 export function RenderSystem(app: Application): System {
   return {
-    filter: [name],
+    filter: new Set([name]),
 
     update(delta: number, entities: Entity[]) {
       app.stage.removeChildren();

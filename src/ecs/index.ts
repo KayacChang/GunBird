@@ -1,28 +1,35 @@
 import EntityManager from './entity';
 import ComponentManager from './component';
 import SystemManager from './system';
-import { Entity } from './types';
+import { Entity, System } from './types';
+import { memo } from './utils';
 
-const entity = EntityManager();
-const component = ComponentManager();
-const system = SystemManager();
+const entities: Set<Entity> = new Set();
+const systems: Set<System> = new Set();
 
-function getEntitiesByComponentNames(names: string[], entities: Entity[]) {
-  return entities.filter((entity) => names.every((name) => entity.has(name)));
+function getEntitiesByComponentNames(entities: Entity[], filter: string[]) {
+  return entities.filter((entity) => filter.every((name) => entity.has(name)));
 }
 
-function update(delta: number) {
-  const entities = Array.from(entity.get());
-
-  Array.from(system.get()).forEach(({ filter, update }) =>
-    update(delta, getEntitiesByComponentNames(filter, entities))
+const findEntitiesBy =
+  //
+  memo((entities: Set<Entity>) =>
+    memo((filter: Set<string>) =>
+      //
+      getEntitiesByComponentNames(Array.from(entities), Array.from(filter))
+    )
   );
+
+function update(delta: number) {
+  const find = findEntitiesBy(entities);
+
+  systems.forEach(({ filter, update }) => update(delta, find(filter)));
 }
 
 export default {
-  entity,
-  component,
-  system,
+  entity: EntityManager(entities),
+  component: ComponentManager(),
+  system: SystemManager(systems),
   update,
 };
 

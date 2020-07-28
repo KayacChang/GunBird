@@ -1,8 +1,6 @@
 import { Entity, Component } from './types';
 
-export default function EntityManager() {
-  const entities: Set<Entity> = new Set();
-
+export default function EntityManager(entities: Set<Entity>) {
   return {
     create(): Entity {
       const entity = new Map<string, Component>();

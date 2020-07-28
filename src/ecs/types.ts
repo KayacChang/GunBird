@@ -5,6 +5,6 @@ export interface Component {
 export type Entity = Map<string, Component>;
 
 export interface System {
-  filter: string[];
+  filter: Set<string>;
   update: (delta: number, entities: Entity[]) => void;
 }
