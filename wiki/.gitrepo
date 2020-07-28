@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/KayacChang/GunBird.wiki.git
+	branch = master
+	commit = af75203e38a0cd043fb7c37f7c5109d3d991f898
+	parent = fbeb37477540d629c84daf2b67d641c339b45088
+	method = merge
+	cmdver = 0.4.1
