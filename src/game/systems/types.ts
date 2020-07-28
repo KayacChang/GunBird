@@ -1,6 +1,6 @@
 import { Component } from '../../ecs';
 import { DisplayObject } from 'pixi.js';
-import { Vector2 } from '../../constants/common';
+import { Vector2 } from '../../constants';
 
 export interface IRenderer extends Component {
   name: 'renderer';
@@ -10,4 +10,14 @@ export interface IRenderer extends Component {
 export interface ITransform extends Component {
   name: 'transform';
   position: Vector2;
+}
+
+export interface IControl extends Component {
+  name: 'control';
+  keys: Set<string>;
+}
+
+export interface IMovement extends Component {
+  name: 'movement';
+  speed: number;
 }

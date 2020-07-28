@@ -1,4 +1,4 @@
-import { Pair, Size } from './common';
+import { Pair, Size } from './types';
 
 type SCREEN = 'VGA' | 'SVGA' | 'XGA' | 'HD' | 'FULL_HD';
 type ORIENTATION = 'Portrait' | 'Landscape';

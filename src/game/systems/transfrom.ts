@@ -1,6 +1,6 @@
 import { System, Entity } from '../../ecs';
 import { IRenderer, ITransform } from './types';
-import { Vector2 } from '../../constants/common';
+import { Vector2 } from '../../constants';
 
 type Props = {
   position?: Vector2;

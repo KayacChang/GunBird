@@ -1,7 +1,7 @@
 import { Application } from 'pixi.js';
 import RES from '../resources';
 import Character from './character';
-import { RenderSystem, TransformSystem, ITransform } from './systems';
+import { RenderSystem, TransformSystem, ITransform, ControlSystem, MovementSystem } from './systems';
 import ECS from '../ecs';
 
 export default async function main(app: Application) {
@@ -11,6 +11,8 @@ export default async function main(app: Application) {
 
   ECS.system.add(RenderSystem(app));
   ECS.system.add(TransformSystem());
+  ECS.system.add(ControlSystem());
+  ECS.system.add(MovementSystem());
 
   init(app);
 }
