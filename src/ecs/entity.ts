@@ -5,9 +5,7 @@ export default function EntityManager() {
 
   return {
     create(): Entity {
-      const entity = {
-        components: new Map<string, Component>(),
-      };
+      const entity = new Map<string, Component>();
 
       entities.add(entity);
 

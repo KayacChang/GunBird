@@ -2,9 +2,7 @@ export interface Component {
   name: string;
 }
 
-export interface Entity {
-  components: Map<string, Component>;
-}
+export type Entity = Map<string, Component>;
 
 export interface System {
   filter: string[];

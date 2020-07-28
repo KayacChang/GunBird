@@ -8,7 +8,7 @@ const component = ComponentManager();
 const system = SystemManager();
 
 function getEntitiesByComponentNames(names: string[], entities: Entity[]) {
-  return entities.filter((entity) => names.every((name) => entity.components.has(name)));
+  return entities.filter((entity) => names.every((name) => entity.has(name)));
 }
 
 function update(delta: number) {

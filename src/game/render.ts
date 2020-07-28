@@ -20,8 +20,8 @@ export function RenderSystem(app: Application): System {
     update(delta: number, entities: Entity[]) {
       app.stage.removeChildren();
 
-      entities.forEach(({ components }) => {
-        const { view } = components.get(name) as Renderer;
+      entities.forEach((entity) => {
+        const { view } = entity.get(name) as Renderer;
 
         app.stage.addChild(view);
       });
