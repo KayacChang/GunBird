@@ -1,5 +1,5 @@
 import { DisplayObject, Application } from 'pixi.js';
-import ECS, { Component, Entity, System } from '../ecs';
+import { Component, Entity, System } from '../../ecs';
 
 interface Renderer extends Component {
   view: DisplayObject;
@@ -7,23 +7,28 @@ interface Renderer extends Component {
 
 const name = 'renderer';
 
-export function addRenderer(entity: Entity, view: DisplayObject) {
-  const renderer: Renderer = { name, view };
-
-  ECS.component.add(renderer, entity);
+export function Renderer(view: DisplayObject): Renderer {
+  return { name, view };
 }
 
 export function RenderSystem(app: Application): System {
+  const cache: Set<Entity> = new Set();
+
   return {
     filter: new Set([name]),
 
     update(delta: number, entities: Entity[]) {
-      app.stage.removeChildren();
-
+      //
       entities.forEach((entity) => {
-        const { view } = entity.get(name) as Renderer;
+        //
+        if (cache.has(entity)) {
+          return;
+        }
 
+        const { view } = entity.get(name) as Renderer;
         app.stage.addChild(view);
+
+        cache.add(entity);
       });
     },
   };
