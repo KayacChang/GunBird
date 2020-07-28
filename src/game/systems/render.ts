@@ -1,21 +1,16 @@
 import { DisplayObject, Application } from 'pixi.js';
-import { Component, Entity, System } from '../../ecs';
+import { Entity, System } from '../../ecs';
+import { IRenderer } from './types';
 
-interface Renderer extends Component {
-  view: DisplayObject;
-}
-
-const name = 'renderer';
-
-export function Renderer(view: DisplayObject): Renderer {
-  return { name, view };
+export function Renderer(view: DisplayObject): IRenderer {
+  return { name: 'renderer', view };
 }
 
 export function RenderSystem(app: Application): System {
   const cache: Set<Entity> = new Set();
 
   return {
-    filter: new Set([name]),
+    filter: new Set(['renderer']),
 
     update(delta: number, entities: Entity[]) {
       //
@@ -25,7 +20,7 @@ export function RenderSystem(app: Application): System {
           return;
         }
 
-        const { view } = entity.get(name) as Renderer;
+        const { view } = entity.get('renderer') as IRenderer;
         app.stage.addChild(view);
 
         cache.add(entity);

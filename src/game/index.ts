@@ -1,7 +1,7 @@
 import { Application } from 'pixi.js';
 import RES from '../resources';
 import Character from './character';
-import { RenderSystem } from './systems';
+import { RenderSystem, TransformSystem, ITransform } from './systems';
 import ECS from '../ecs';
 
 export default async function main(app: Application) {
@@ -10,6 +10,7 @@ export default async function main(app: Application) {
   app.ticker.add(ECS.update);
 
   ECS.system.add(RenderSystem(app));
+  ECS.system.add(TransformSystem());
 
   init(app);
 }
@@ -17,6 +18,6 @@ export default async function main(app: Application) {
 function init(app: Application) {
   const marion = Character();
 
-  marion.x = app.screen.width / 2;
-  marion.y = app.screen.height / 2;
+  const transform = marion.get('transform') as ITransform;
+  transform.position = [app.screen.width / 2, app.screen.height / 2];
 }
