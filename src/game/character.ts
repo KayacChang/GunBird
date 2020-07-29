@@ -1,7 +1,7 @@
 import { Spritesheet, AnimatedSprite } from 'pixi.js';
 import RES from '../resources';
 import { Renderer, Transform, Control, Movement } from '../systems';
-import { Entity } from '../core';
+import { ecs } from '../core';
 
 export default function Character() {
   const texture = RES.get('spritesheet', 'MARION_IDLE') as Spritesheet;
@@ -12,11 +12,11 @@ export default function Character() {
   it.animationSpeed = 0.2;
   it.play();
 
-  const entity = Entity('marion');
-  entity.addComponent(Renderer(it));
-  entity.addComponent(Transform({}));
-  entity.addComponent(Control());
-  entity.addComponent(Movement());
+  const entity = ecs.entity.create('marion');
+  ecs.component.add(Renderer(it), entity);
+  ecs.component.add(Transform({}), entity);
+  ecs.component.add(Control(), entity);
+  ecs.component.add(Movement(), entity);
 
   return entity;
 }

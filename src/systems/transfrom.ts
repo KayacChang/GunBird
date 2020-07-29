@@ -1,4 +1,4 @@
-import { IEntity } from '../core';
+import { IEntity, ISystem } from '../core';
 import { IRenderer, ITransform } from './types';
 import { Vector2 } from '../constants';
 
@@ -10,10 +10,8 @@ export function Transform({ position = [0, 0] }: Props): ITransform {
   return { name: 'transform', position };
 }
 
-export function TransformSystem() {
+export function TransformSystem(): ISystem {
   return {
-    name: 'TransformSystem',
-
     filter: new Set(['renderer', 'transform']),
 
     update(delta: number, entities: IEntity[]) {

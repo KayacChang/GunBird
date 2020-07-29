@@ -1,4 +1,4 @@
-import { IEntity } from '../core';
+import { IEntity, ISystem } from '../core';
 import { IControl } from './types';
 
 function KeyBoard() {
@@ -14,12 +14,10 @@ export function Control(): IControl {
   return { name: 'control', keys: new Set() };
 }
 
-export function ControlSystem() {
+export function ControlSystem(): ISystem {
   const getInputs = KeyBoard();
 
   return {
-    name: 'ContorlSystem',
-
     filter: new Set(['control']),
 
     update(delta: number, entities: IEntity[]) {

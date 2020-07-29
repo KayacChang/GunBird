@@ -1,5 +1,5 @@
 import { Vector2 } from '../constants';
-import { IEntity } from '../core';
+import { IEntity, ISystem } from '../core';
 import { IControl, IMovement, ITransform } from './types';
 import { normalize } from '../functions';
 
@@ -18,10 +18,8 @@ export function Movement(): IMovement {
   return { name: 'movement', speed: 5 };
 }
 
-export function MovementSystem() {
+export function MovementSystem(): ISystem {
   return {
-    name: 'MovementSystem',
-
     filter: new Set(['control', 'movement', 'transform']),
 
     update(delta: number, entities: IEntity[]) {
