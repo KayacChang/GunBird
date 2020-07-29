@@ -1,6 +1,6 @@
-import { System, Entity } from '../../ecs';
+import { IEntity } from '../core';
 import { IRenderer, ITransform } from './types';
-import { Vector2 } from '../../constants';
+import { Vector2 } from '../constants';
 
 type Props = {
   position?: Vector2;
@@ -10,11 +10,13 @@ export function Transform({ position = [0, 0] }: Props): ITransform {
   return { name: 'transform', position };
 }
 
-export function TransformSystem(): System {
+export function TransformSystem() {
   return {
+    name: 'TransformSystem',
+
     filter: new Set(['renderer', 'transform']),
 
-    update(delta: number, entities: Entity[]) {
+    update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
         //

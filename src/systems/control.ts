@@ -1,4 +1,4 @@
-import { System, Entity } from '../../ecs';
+import { IEntity } from '../core';
 import { IControl } from './types';
 
 function KeyBoard() {
@@ -14,13 +14,15 @@ export function Control(): IControl {
   return { name: 'control', keys: new Set() };
 }
 
-export function ControlSystem(): System {
+export function ControlSystem() {
   const getInputs = KeyBoard();
 
   return {
+    name: 'ContorlSystem',
+
     filter: new Set(['control']),
 
-    update(delta: number, entities: Entity[]) {
+    update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
         //

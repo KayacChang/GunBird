@@ -1,18 +1,20 @@
 import { DisplayObject, Application } from 'pixi.js';
-import { Entity, System } from '../../ecs';
+import { IEntity, ISystem } from '../core';
 import { IRenderer } from './types';
 
 export function Renderer(view: DisplayObject): IRenderer {
   return { name: 'renderer', view };
 }
 
-export function RenderSystem(app: Application): System {
-  const cache: Set<Entity> = new Set();
+export function RenderSystem(app: Application) {
+  const cache: Set<IEntity> = new Set();
 
   return {
+    name: 'RenderSystem',
+
     filter: new Set(['renderer']),
 
-    update(delta: number, entities: Entity[]) {
+    update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
         //

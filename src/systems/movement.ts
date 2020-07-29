@@ -1,7 +1,7 @@
-import { Vector2 } from '../../constants';
-import { System, Entity } from '../../ecs';
+import { Vector2 } from '../constants';
+import { IEntity } from '../core';
 import { IControl, IMovement, ITransform } from './types';
-import { normalize } from '../../functions';
+import { normalize } from '../functions';
 
 function maptoDir(keys: Set<string>): Vector2 {
   let [x, y] = [0, 0];
@@ -18,11 +18,13 @@ export function Movement(): IMovement {
   return { name: 'movement', speed: 5 };
 }
 
-export function MovementSystem(): System {
+export function MovementSystem() {
   return {
+    name: 'MovementSystem',
+
     filter: new Set(['control', 'movement', 'transform']),
 
-    update(delta: number, entities: Entity[]) {
+    update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
         //
