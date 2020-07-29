@@ -1,4 +1,4 @@
-import { IEntity, ISystem } from '../core';
+import { IEntity, ISystem } from '../ecs';
 import { IRenderer, ITransform } from './types';
 import { Vector2 } from '../constants';
 

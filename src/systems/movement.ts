@@ -1,5 +1,5 @@
 import { Vector2 } from '../constants';
-import { IEntity, ISystem } from '../core';
+import { IEntity, ISystem } from '../ecs';
 import { IControl, IMovement, ITransform } from './types';
 import { normalize } from '../functions';
 

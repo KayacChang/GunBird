@@ -1,7 +1,7 @@
 import { Spritesheet, AnimatedSprite } from 'pixi.js';
 import RES from '../resources';
 import { Renderer, Transform, Control, Movement } from '../systems';
-import { ECS } from '../core';
+import ECS from '../ecs';
 
 export default function Character() {
   const texture = RES.get('spritesheet', 'MARION_IDLE') as Spritesheet;

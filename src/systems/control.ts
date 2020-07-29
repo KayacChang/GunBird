@@ -1,4 +1,4 @@
-import { IEntity, ISystem } from '../core';
+import { IEntity, ISystem } from '../ecs';
 import { IControl } from './types';
 
 function KeyBoard() {

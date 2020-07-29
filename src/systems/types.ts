@@ -1,4 +1,4 @@
-import { IComponent } from '../core';
+import { IComponent } from '../ecs';
 import { DisplayObject } from 'pixi.js';
 import { Vector2 } from '../constants';
 

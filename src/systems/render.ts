@@ -1,6 +1,6 @@
 import { DisplayObject, Application } from 'pixi.js';
 import { IRenderer } from '.';
-import { ISystem, IEntity } from '../core';
+import { ISystem, IEntity } from '../ecs';
 
 export function Renderer(view: DisplayObject): IRenderer {
   return { name: 'renderer', view };
