@@ -1,4 +1,3 @@
-import ecs from './adapter';
-
+import ECS from './adapter';
 export * from './ecs/types';
-export { ecs };
+export { ECS };
