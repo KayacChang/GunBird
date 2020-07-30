@@ -6,7 +6,7 @@
 [subrepo]
 	remote = git@github.com:KayacChang/ECS.js.git
 	branch = master
-	commit = 8aa39755ad54ccf81a51d156a9ff58c6fc73d0df
-	parent = 489fcbcf8b94a212d5d390d58d75e93f7bccbd2e
+	commit = 8662d26e4ae0ee942916cba294180ab016c3091e
+	parent = 30afa14e180b2a17ae42373f8565a3e53fb48f2a
 	method = merge
 	cmdver = 0.4.1
