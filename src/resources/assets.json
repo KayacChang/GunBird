@@ -2,5 +2,9 @@
   {
     "name": "MARION_IDLE",
     "url": "assets/characters/marion/marion-idle.json"
+  },
+  {
+    "name": "MARION_BULLET_01",
+    "url": "assets/characters/marion/bullet_01.json"
   }
 ]
