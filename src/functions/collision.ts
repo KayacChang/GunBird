@@ -3,13 +3,15 @@ import { Vector2 } from '../constants';
 interface Geometry {}
 
 interface Circle extends Geometry {
-  center: Vector2;
-  radius: number;
+  c: Vector2;
+  r: number;
 }
 
 interface Rect extends Geometry {
-  point: Vector2;
-  size: Vector2;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
 }
 
 function isVector2(arg: any): arg is Vector2 {
@@ -19,8 +21,8 @@ function isVector2(arg: any): arg is Vector2 {
 function isCircle(arg: Geometry): arg is Circle {
   const test = arg as Circle;
 
-  const testA = 'center' in test && isVector2(test.center);
-  const testB = 'radius' in test && !Number.isNaN(test.radius);
+  const testA = 'c' in test && isVector2(test.c);
+  const testB = 'r' in test && !Number.isNaN(test.r);
 
   return testA && testB;
 }
@@ -28,31 +30,32 @@ function isCircle(arg: Geometry): arg is Circle {
 function isRect(arg: Geometry): arg is Rect {
   const test = arg as Rect;
 
-  const testA = 'point' in test && isVector2(test.point);
-  const testB = 'size' in test && isVector2(test.size);
+  const testA = 'x' in test && !Number.isNaN(test.x);
+  const testB = 'y' in test && !Number.isNaN(test.y);
+  const testC = 'w' in test && !Number.isNaN(test.w);
+  const testD = 'h' in test && !Number.isNaN(test.h);
 
-  return testA && testB;
+  return testA && testB && testC && testD;
 }
 
 function hitTestCircle(a: Circle, b: Circle) {
-  const [ax, ay] = a.center;
-  const [bx, by] = b.center;
+  const [ax, ay] = a.c;
+  const [bx, by] = b.c;
   const [dx, dy] = [ax - bx, ay - by];
 
-  return Math.sqrt(dx * dx + dy * dy) < a.radius + b.radius;
+  return Math.sqrt(dx * dx + dy * dy) < a.r + b.r;
 }
 
-function hitTestRectCircle(rect: Rect, c: Circle) {
-  let [cx, cy] = c.center;
-  let [rx, ry] = rect.point;
-  let [rw, rh] = rect.size;
+function hitTestRectCircle(a: Rect, b: Circle) {
+  const [cx, cy] = b.c;
+  const { x: rx, y: ry, w: rw, h: rh } = a;
 
   const tx = cx < rx ? rx : cx > rx + rw ? rx + rw : cx;
   const ty = cy < ry ? ry : cy > ry + rh ? ry + rh : cy;
 
   const [dx, dy] = [cx - tx, cy - ty];
 
-  return Math.sqrt(dx * dx + dy * dy) <= c.radius;
+  return Math.sqrt(dx * dx + dy * dy) <= b.r;
 }
 
 export default function hitTest(a: Geometry, b: Geometry) {
