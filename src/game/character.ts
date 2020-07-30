@@ -1,7 +1,7 @@
 import { Spritesheet, AnimatedSprite, Container } from 'pixi.js';
 import RES from '../resources';
-import { Renderer, Transform, Control, Movement, Shoot } from '../systems';
-import ECS from '../ecs';
+import { Renderer, Transform, Control, Shoot, Speed } from '../systems';
+import ECS from '@kayac/ecs.js';
 import Bullet from './bullet';
 
 export default function Character() {
@@ -21,8 +21,8 @@ export default function Character() {
   ECS.component.add(Renderer(it), entity);
   ECS.component.add(Transform({}), entity);
   ECS.component.add(Control(), entity);
-  ECS.component.add(Movement(), entity);
-  ECS.component.add(Shoot({ bullet: Bullet }), entity);
+  ECS.component.add(Speed(5), entity);
+  ECS.component.add(Shoot({ fireRate: 8, bullet: Bullet }), entity);
 
   return entity;
 }

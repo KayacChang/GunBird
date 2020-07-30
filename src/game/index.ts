@@ -2,7 +2,7 @@ import { Application } from 'pixi.js';
 import RES from '../resources';
 import Character from './character';
 import { RenderSystem, TransformSystem, ITransform, ControlSystem, MovementSystem, ShootSystem } from '../systems';
-import ECS from '../ecs';
+import ECS from '@kayac/ecs.js';
 
 export default async function main(app: Application) {
   await RES.load();

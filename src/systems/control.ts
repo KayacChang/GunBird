@@ -1,5 +1,8 @@
-import { IEntity, ISystem } from '../ecs';
-import { IControl } from './types';
+import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
+import { IControl, ISpeed, IShoot } from './types';
+import { Vector2 } from '../constants';
+import { normalize } from '../functions';
+import { Movement } from './movement';
 
 function KeyBoard() {
   const keys = new Set<string>();
@@ -10,23 +13,37 @@ function KeyBoard() {
   return () => keys;
 }
 
+function maptoDir(keys: Set<string>): Vector2 {
+  return [
+    //
+    Number(keys.has('d')) - Number(keys.has('a')),
+    Number(keys.has('s')) - Number(keys.has('w')),
+  ];
+}
+
 export function Control(): IControl {
-  return { name: 'control', keys: new Set() };
+  return { id: 'control' };
 }
 
 export function ControlSystem(): ISystem {
   const getInputs = KeyBoard();
 
   return {
-    filter: new Set(['control']),
+    id: ControlSystem.name,
+
+    filter: new Set(['control', 'speed', 'shoot']),
 
     update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
-        //
-        const control = entity.get('control') as IControl;
+        const keys = getInputs();
 
-        control.keys = getInputs();
+        const { value } = entity.get('speed') as ISpeed;
+        const [mx, my] = normalize(maptoDir(keys)).map((dv) => dv * value * delta);
+        ECS.component.add(Movement([mx, my]), entity);
+
+        const shoot = entity.get('shoot') as IShoot;
+        shoot.fire = keys.has(' ');
       });
     },
   };

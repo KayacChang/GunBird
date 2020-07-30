@@ -1,23 +1,34 @@
-import { IComponent } from '../ecs';
+import { IComponent, IEntity } from '@kayac/ecs.js';
 import { DisplayObject } from 'pixi.js';
 import { Vector2 } from '../constants';
 
 export interface IRenderer extends IComponent {
-  name: 'renderer';
+  id: 'renderer';
   view: DisplayObject;
 }
 
 export interface ITransform extends IComponent {
-  name: 'transform';
+  id: 'transform';
   position: Vector2;
 }
 
 export interface IControl extends IComponent {
-  name: 'control';
-  keys: Set<string>;
+  id: 'control';
 }
 
 export interface IMovement extends IComponent {
-  name: 'movement';
-  speed: number;
+  id: 'movement';
+  vector: Vector2;
+}
+
+export interface ISpeed extends IComponent {
+  id: 'speed';
+  value: number;
+}
+
+export interface IShoot extends IComponent {
+  fireRate: number;
+  coldDown: number;
+  fire: boolean;
+  bullet: () => IEntity;
 }
