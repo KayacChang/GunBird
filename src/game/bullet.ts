@@ -1,7 +1,7 @@
 import { Spritesheet, AnimatedSprite, Container } from 'pixi.js';
 import RES from '../resources';
 import ECS from '@kayac/ecs.js';
-import { Renderer, Transform, Speed } from '../systems';
+import { Renderer, Transform, Speed } from '../components';
 
 function View() {
   const texture = RES.get('spritesheet', 'MARION_BULLET_01') as Spritesheet;
@@ -15,7 +15,7 @@ function View() {
   sprite.play();
 
   // offset
-  sprite.position.y = -80;
+  sprite.position.y = -40;
 
   it.addChild(sprite);
 

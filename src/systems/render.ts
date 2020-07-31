@@ -1,10 +1,6 @@
-import { DisplayObject, Application } from 'pixi.js';
-import { IRenderer } from '.';
+import { Application } from 'pixi.js';
 import { ISystem, IEntity } from '@kayac/ecs.js';
-
-export function Renderer(view: DisplayObject): IRenderer {
-  return { id: 'renderer', view };
-}
+import { IRenderer } from '../components';
 
 export function RenderSystem(app: Application): ISystem {
   const cache: Set<IEntity> = new Set();

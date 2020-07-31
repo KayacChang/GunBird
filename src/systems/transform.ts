@@ -1,14 +1,5 @@
 import { IEntity, ISystem } from '@kayac/ecs.js';
-import { IRenderer, ITransform } from './types';
-import { Vector2 } from '../constants';
-
-type Props = {
-  position?: Vector2;
-};
-
-export function Transform({ position = [0, 0] }: Props): ITransform {
-  return { id: 'transform', position };
-}
+import { IRenderer, ITransform } from '../components/types';
 
 export function TransformSystem(): ISystem {
   return {

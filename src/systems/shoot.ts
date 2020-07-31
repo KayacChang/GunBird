@@ -1,14 +1,6 @@
 import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
-import { ITransform, IShoot, ISpeed } from './types';
-import { Movement } from './movement';
-
-type Props = {
-  fireRate: number;
-  bullet: () => IEntity;
-};
-export function Shoot({ fireRate, bullet }: Props): IShoot {
-  return { id: 'shoot', fireRate, coldDown: 0, fire: false, bullet };
-}
+import { ITransform, IShoot, ISpeed } from '../components/types';
+import { Movement } from '../components';
 
 export function ShootSystem(): ISystem {
   return {

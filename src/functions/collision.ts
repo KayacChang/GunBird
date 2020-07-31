@@ -1,18 +1,4 @@
-import { Vector2 } from '../constants';
-
-interface Geometry {}
-
-interface Circle extends Geometry {
-  c: Vector2;
-  r: number;
-}
-
-interface Rect extends Geometry {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-}
+import { Vector2, Geometry, Circle, Rect } from '../constants';
 
 function isVector2(arg: any): arg is Vector2 {
   return Array.isArray(arg) && arg.length === 2;

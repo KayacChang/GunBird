@@ -1,10 +1,5 @@
 import { IEntity, ISystem } from '@kayac/ecs.js';
-import { IMovement, ITransform } from './types';
-import { Vector2 } from '../constants';
-
-export function Movement(vector: Vector2): IMovement {
-  return { id: 'movement', vector };
-}
+import { IMovement, ITransform } from '../components/types';
 
 export function MovementSystem(): ISystem {
   return {

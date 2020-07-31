@@ -1,6 +1,6 @@
 import { IComponent, IEntity } from '@kayac/ecs.js';
 import { DisplayObject } from 'pixi.js';
-import { Vector2 } from '../constants';
+import { Vector2, Rect } from '../constants';
 
 export interface IRenderer extends IComponent {
   id: 'renderer';
@@ -31,4 +31,9 @@ export interface IShoot extends IComponent {
   coldDown: number;
   fire: boolean;
   bullet: () => IEntity;
+}
+
+export interface IBoundary extends IComponent {
+  id: 'boundary';
+  rect: Rect;
 }

@@ -1,8 +1,8 @@
 import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
-import { IControl, ISpeed, IShoot } from './types';
+import { ISpeed, IShoot } from '../components';
 import { Vector2 } from '../constants';
 import { normalize } from '../functions';
-import { Movement } from './movement';
+import { Movement } from '../components';
 
 function KeyBoard() {
   const keys = new Set<string>();
@@ -19,10 +19,6 @@ function maptoDir(keys: Set<string>): Vector2 {
     Number(keys.has('d')) - Number(keys.has('a')),
     Number(keys.has('s')) - Number(keys.has('w')),
   ];
-}
-
-export function Control(): IControl {
-  return { id: 'control' };
 }
 
 export function ControlSystem(): ISystem {
