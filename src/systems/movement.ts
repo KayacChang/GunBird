@@ -10,7 +10,6 @@ export function MovementSystem(): ISystem {
     update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
-        //
         const transform = entity.get('transform') as ITransform;
         const { vector } = entity.get('movement') as IMovement;
 

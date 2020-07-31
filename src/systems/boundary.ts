@@ -9,6 +9,7 @@ export function BoundarySystem(): ISystem {
     filter: new Set(['boundary', 'transform']),
 
     update(delta: number, entities: IEntity[]) {
+      //
       entities.forEach((entity) => {
         const { rect } = entity.get('boundary') as IBoundary;
 

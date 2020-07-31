@@ -13,7 +13,6 @@ export function RenderSystem(app: Application): ISystem {
     update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
-        //
         if (cache.has(entity)) {
           return;
         }

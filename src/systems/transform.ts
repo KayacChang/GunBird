@@ -10,7 +10,6 @@ export function TransformSystem(): ISystem {
     update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
-        //
         const { view } = entity.get('renderer') as IRenderer;
         const { position } = entity.get('transform') as ITransform;
 

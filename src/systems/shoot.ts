@@ -11,11 +11,9 @@ export function ShootSystem(): ISystem {
     update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
-        //
         const shoot = entity.get('shoot') as IShoot;
 
         shoot.coldDown = Math.max(0, shoot.coldDown - delta);
-
         if (shoot.coldDown > 0 || !shoot.fire) {
           return;
         }
