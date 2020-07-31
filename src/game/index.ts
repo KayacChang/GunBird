@@ -1,24 +1,35 @@
-import { Application } from 'pixi.js';
+import { Application, Container } from 'pixi.js';
 import RES from '../resources';
 import Character from './character';
-import { RenderSystem, TransformSystem, ControlSystem, MovementSystem, ShootSystem, BoundarySystem } from '../systems';
+import {
+  RenderSystem,
+  TransformSystem,
+  ControlSystem,
+  MovementSystem,
+  ShootSystem,
+  CollisionSystem,
+  BoundarySystem,
+} from '../systems';
 import ECS from '@kayac/ecs.js';
 
 export default async function main(app: Application) {
   await RES.load();
 
+  const layers = new Map([
+    ['player', new Container()],
+    ['bullet', new Container()],
+  ]);
+  app.stage.addChild(...layers.values());
+
+  Character(app);
+
   ECS.system.add(ControlSystem());
   ECS.system.add(ShootSystem());
   ECS.system.add(MovementSystem());
+  ECS.system.add(CollisionSystem(['player', 'bullet']));
   ECS.system.add(BoundarySystem());
   ECS.system.add(TransformSystem());
-  ECS.system.add(RenderSystem(app));
+  ECS.system.add(RenderSystem(layers));
 
   app.ticker.add(ECS.update);
-
-  requestAnimationFrame(() => init(app));
-}
-
-function init(app: Application) {
-  Character(app);
 }

@@ -1,9 +1,11 @@
-import { Application } from 'pixi.js';
+import { Container } from 'pixi.js';
 import { ISystem, IEntity } from '@kayac/ecs.js';
 import { IRenderer } from '../components';
 
-export function RenderSystem(app: Application): ISystem {
-  const cache: Set<IEntity> = new Set();
+type Layers = Map<string, Container>;
+
+export function RenderSystem(layers: Layers): ISystem {
+  const cache = new Set<IEntity>();
 
   return {
     id: RenderSystem.name,
@@ -12,14 +14,23 @@ export function RenderSystem(app: Application): ISystem {
 
     update(delta: number, entities: IEntity[]) {
       //
+      Array.from(cache)
+        .filter((entity) => !entities.includes(entity))
+        .forEach((entity) => {
+          const { view, layer } = entity.get('renderer') as IRenderer;
+
+          layers.get(layer)?.removeChild(view);
+        });
+
       entities.forEach((entity) => {
-        if (cache.has(entity)) {
+        const { view, layer } = entity.get('renderer') as IRenderer;
+
+        const container = layers.get(layer);
+        if (!container || cache.has(entity)) {
           return;
         }
 
-        const { view } = entity.get('renderer') as IRenderer;
-        app.stage.addChild(view);
-
+        container.addChild(view);
         cache.add(entity);
       });
     },

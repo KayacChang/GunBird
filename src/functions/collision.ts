@@ -44,7 +44,7 @@ function hitTestRectCircle(a: Rect, b: Circle) {
   return Math.sqrt(dx * dx + dy * dy) <= b.r;
 }
 
-export default function hitTest(a: Geometry, b: Geometry) {
+export function hitTest(a: Geometry, b: Geometry) {
   //
   if (isCircle(a) && isCircle(b)) {
     return hitTestCircle(a, b);

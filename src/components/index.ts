@@ -5,4 +5,5 @@ export * from './renderer';
 export * from './shoot';
 export * from './speed';
 export * from './transform';
+export * from './collider';
 export * from './boundary';

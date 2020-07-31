@@ -1,10 +1,11 @@
 import { IComponent, IEntity } from '@kayac/ecs.js';
 import { DisplayObject } from 'pixi.js';
-import { Vector2, Rect } from '../constants';
+import { Vector2, Rect, Geometry } from '../constants';
 
 export interface IRenderer extends IComponent {
   id: 'renderer';
   view: DisplayObject;
+  layer: string;
 }
 
 export interface ITransform extends IComponent {
@@ -36,4 +37,14 @@ export interface IShoot extends IComponent {
 export interface IBoundary extends IComponent {
   id: 'boundary';
   rect: Rect;
+}
+
+export interface ICollider extends IComponent {
+  id: 'collider';
+  group: string;
+  shape: Geometry;
+  stay: boolean;
+  onEnter?: () => void;
+  onStay?: () => void;
+  onLeave?: () => void;
 }

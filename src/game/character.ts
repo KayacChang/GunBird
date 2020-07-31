@@ -1,6 +1,6 @@
 import { Spritesheet, AnimatedSprite, Container, Application } from 'pixi.js';
 import RES from '../resources';
-import { Renderer, Transform, Control, Shoot, Speed, Boundary } from '../components';
+import { Renderer, Transform, Control, Shoot, Speed, Collider, Boundary } from '../components';
 import ECS from '@kayac/ecs.js';
 import Bullet from './bullet';
 
@@ -18,7 +18,7 @@ export default function Character(app: Application) {
   it.addChild(sprite);
 
   const entity = ECS.entity.create('marion');
-  ECS.component.add(Renderer(it), entity);
+  ECS.component.add(Renderer({ view: it, layer: 'player' }), entity);
   ECS.component.add(
     Transform({
       position: [app.screen.width / 2, app.screen.height / 2],
@@ -28,6 +28,7 @@ export default function Character(app: Application) {
   ECS.component.add(Control(), entity);
   ECS.component.add(Speed(5), entity);
   ECS.component.add(Shoot({ fireRate: 8, bullet: Bullet }), entity);
+  ECS.component.add(Collider({ group: 'player', shape: { r: 10, c: [0, 0] } }), entity);
   ECS.component.add(
     Boundary({
       x: app.screen.x,
