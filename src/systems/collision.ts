@@ -2,6 +2,13 @@ import { ISystem, IEntity } from '@kayac/ecs.js';
 import { ICollider } from '../components';
 import { hitTest } from '../functions';
 
+function detectCollision(a: ICollider, b: ICollider) {
+  const isHit = hitTest(a.shape, b.shape);
+
+  a.isColliding = isHit;
+  b.isColliding = isHit;
+}
+
 export function CollisionSystem(groups: string[]): ISystem {
   return {
     id: CollisionSystem.name,
@@ -10,49 +17,27 @@ export function CollisionSystem(groups: string[]): ISystem {
 
     update(delta: number, entities: IEntity[]) {
       //
-      groups.forEach((group) => {
-        //
-        entities
-          .filter((entity) => {
+      groups
+        .map((group) =>
+          entities.filter((entity) => {
             const collider = entity.get('collider') as ICollider;
 
             return collider.group === group;
           })
-          .forEach((target, index, entitiesInGroup) => {
+        )
+        .forEach((group) => {
+          //
+          for (let i = 0; i < group.length; i++) {
             //
-            entitiesInGroup.forEach((test) => {
-              if (test === target) {
-                return;
-              }
+            for (let j = i + 1; j < group.length; j++) {
+              const colliderA = group[i].get('collider') as ICollider;
+              const colliderB = group[j].get('collider') as ICollider;
 
-              const targetCollider = target.get('collider') as ICollider;
-              const testCollider = test.get('collider') as ICollider;
-
-              const { stay, onEnter, onStay, onLeave } = targetCollider;
-              const isHit = hitTest(targetCollider.shape, testCollider.shape);
-
-              if (stay && isHit) {
-                onStay && onStay();
-
-                return;
-              }
-
-              if (isHit) {
-                onEnter && onEnter();
-
-                targetCollider.stay = true;
-                return;
-              }
-
-              if (stay && !isHit) {
-                onLeave && onLeave();
-
-                targetCollider.stay = false;
-                return;
-              }
-            });
-          });
-      });
+              detectCollision(colliderA, colliderB);
+            }
+          }
+          //
+        });
     },
   };
 }

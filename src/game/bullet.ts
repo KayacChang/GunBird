@@ -31,7 +31,7 @@ export default function Bullet() {
   ECS.component.add(
     Collider({
       group: 'bullet',
-      shape: { r: 30, c: [0, 0] },
+      shape: { r: 10, c: [0, -30] },
     }),
     entity
   );

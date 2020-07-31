@@ -43,8 +43,10 @@ export interface ICollider extends IComponent {
   id: 'collider';
   group: string;
   shape: Geometry;
-  stay: boolean;
+  isColliding: boolean;
   onEnter?: () => void;
   onStay?: () => void;
   onLeave?: () => void;
+
+  debug: IEntity;
 }

@@ -9,6 +9,7 @@ import {
   ShootSystem,
   CollisionSystem,
   BoundarySystem,
+  DebugSystem,
 } from '../systems';
 import ECS from '@kayac/ecs.js';
 
@@ -18,6 +19,7 @@ export default async function main(app: Application) {
   const layers = new Map([
     ['player', new Container()],
     ['bullet', new Container()],
+    ['debug', new Container()],
   ]);
   app.stage.addChild(...layers.values());
 
@@ -28,6 +30,8 @@ export default async function main(app: Application) {
   ECS.system.add(MovementSystem());
   ECS.system.add(CollisionSystem(['player', 'bullet']));
   ECS.system.add(BoundarySystem());
+  ECS.system.add(DebugSystem());
+
   ECS.system.add(TransformSystem());
   ECS.system.add(RenderSystem(layers));
 

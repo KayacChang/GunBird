@@ -4,4 +4,5 @@ export * from './control';
 export * from './movement';
 export * from './shoot';
 export * from './collision';
+export * from './debug';
 export * from './boundary';
