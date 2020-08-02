@@ -23,7 +23,7 @@ function View() {
 }
 
 export default function Bullet() {
-  const entity = ECS.entity.create('bullet');
+  const entity = ECS.entity.create();
 
   ECS.component.add(Renderer({ view: View(), layer: 'bullet' }), entity);
   ECS.component.add(Transform({}), entity);

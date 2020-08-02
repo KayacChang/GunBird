@@ -34,7 +34,7 @@ function View(shape: Geometry) {
   throw new Error('shape not support ...');
 }
 
-function showDebug(shape: Geometry) {
+function Debug(shape: Geometry) {
   const entity = ECS.entity.create();
 
   ECS.component.add(Renderer({ view: View(shape), layer: 'debug' }), entity);
@@ -43,6 +43,45 @@ function showDebug(shape: Geometry) {
   return entity;
 }
 
-export function Collider({ group, shape, onEnter, onStay, onLeave }: Props): ICollider {
-  return { id: 'collider', group, shape, onEnter, onStay, onLeave, isColliding: false, debug: showDebug(shape) };
+function observe(onEnter: Function, onStay: Function, onLeave: Function) {
+  return function view(prev = false) {
+    return {
+      get isColliding() {
+        return prev;
+      },
+      set isColliding(cur: boolean) {
+        if (!prev && cur) {
+          onEnter();
+        }
+
+        if (prev && cur) {
+          onStay();
+        }
+
+        if (prev && !cur) {
+          onLeave();
+        }
+
+        prev = cur;
+      },
+    };
+  };
+}
+
+export function Collider({
+  group,
+  shape,
+  onEnter = Function,
+  onStay = Function,
+  onLeave = Function,
+}: Props): ICollider {
+  return {
+    id: 'collider',
+    group,
+    shape,
+
+    ...observe(onEnter, onStay, onLeave)(),
+
+    debug: Debug(shape),
+  };
 }

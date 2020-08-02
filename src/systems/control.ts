@@ -1,8 +1,7 @@
 import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
-import { ISpeed, IShoot } from '../components';
+import { ISpeed, IShoot, ITransform } from '../components';
 import { Vector2 } from '../constants';
 import { normalize } from '../functions';
-import { Movement } from '../components';
 
 function KeyBoard() {
   const keys = new Set<string>();
@@ -27,18 +26,21 @@ export function ControlSystem(): ISystem {
   return {
     id: ControlSystem.name,
 
-    filter: new Set(['control', 'speed', 'shoot']),
+    filter: ['control', 'speed', 'transform', 'shoot'],
 
     update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
         const keys = getInputs();
 
-        const { value } = entity.get('speed') as ISpeed;
-        const [mx, my] = normalize(maptoDir(keys)).map((dv) => dv * value * delta);
-        ECS.component.add(Movement([mx, my]), entity);
+        const { value } = ECS.component.get('speed', entity) as ISpeed;
+        const transform = ECS.component.get('transform', entity) as ITransform;
 
-        const shoot = entity.get('shoot') as IShoot;
+        const [mx, my] = normalize(maptoDir(keys)).map((dv) => dv * value * delta);
+        const [x, y] = transform.position;
+        transform.position = [x + mx, y + my];
+
+        const shoot = ECS.component.get('shoot', entity) as IShoot;
         shoot.fire = keys.has(' ');
       });
     },
