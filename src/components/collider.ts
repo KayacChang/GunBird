@@ -1,5 +1,6 @@
 import { Geometry } from '../constants';
 import { ICollider } from '.';
+import { nextFrame } from '../functions';
 
 type Props = {
   group: string;
@@ -28,7 +29,7 @@ export function Collider({
     },
     set isColliding(cur: boolean) {
       if (!prev && cur) {
-        onEnter();
+        nextFrame().then(onEnter);
       }
 
       if (prev && cur) {
@@ -36,7 +37,7 @@ export function Collider({
       }
 
       if (prev && !cur) {
-        onLeave();
+        nextFrame().then(onLeave);
       }
 
       prev = cur;

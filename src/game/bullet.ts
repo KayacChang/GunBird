@@ -3,7 +3,7 @@ import RES from '../resources';
 import ECS from '@kayac/ecs.js';
 import { Renderer, Transform, Speed, Collider, Debug } from '../components';
 import { AreaListener } from '../components/areaListener';
-import { Circle } from '../constants';
+import { Circle, Vec2 } from '../constants';
 
 function View() {
   const texture = RES.get('spritesheet', 'MARION_BULLET_01') as Spritesheet;
@@ -24,17 +24,41 @@ function View() {
   return it;
 }
 
-export default function Bullet({ screen }: Application) {
+function Impact([x, y]: Vec2) {
+  const texture = RES.get('spritesheet', 'BULLET_IMPACT') as Spritesheet;
+
+  const it = new AnimatedSprite(texture.animations['impact']);
+  it.scale.set(1.2);
+  it.updateAnchor = true;
+  it.animationSpeed = 1;
+  it.loop = false;
+
+  it.position.set(x, y);
+  it.play();
+
+  return it;
+}
+
+export default function Bullet({ screen, stage }: Application) {
   const entity = ECS.entity.create();
 
-  ECS.component.add(Renderer({ view: View(), layer: 'bullet' }), entity);
+  const view = View();
+
+  ECS.component.add(Renderer({ view, layer: 'bullet' }), entity);
   ECS.component.add(Transform({}), entity);
   ECS.component.add(Speed(60), entity);
   ECS.component.add(
     Collider({
       group: 'enemy',
       shape: { radius: 10, position: [0, -30] } as Circle,
-      onEnter: () => ECS.entity.remove(entity),
+      onEnter: () => {
+        const impact = Impact([view.position.x, view.position.y]);
+
+        impact.onComplete = () => stage.removeChild(impact);
+        stage.addChild(impact);
+
+        ECS.entity.remove(entity);
+      },
     }),
     entity
   );

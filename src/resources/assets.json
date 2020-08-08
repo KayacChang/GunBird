@@ -14,5 +14,9 @@
   {
     "name": "BALLOON_EXPLOSION",
     "url": "assets/enemies/balloon/explosion.json"
+  },
+  {
+    "name": "BULLET_IMPACT",
+    "url": "assets/effects/impact.json"
   }
 ]
