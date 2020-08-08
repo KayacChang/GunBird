@@ -16,16 +16,7 @@ import {
 import ECS from '@kayac/ecs.js';
 import { Transform, Boundary, Shoot } from '../components';
 
-export default async function main(app: Application) {
-  await RES.load();
-
-  const layers = new Map([
-    ['player', new Container()],
-    ['bullet', new Container()],
-    ['debug', new Container()],
-  ]);
-  app.stage.addChild(...layers.values());
-
+function init(app: Application) {
   const player = Character();
   ECS.component.add(Shoot({ fireRate: 8, bullet: () => Bullet(app) }), player);
   ECS.component.add(
@@ -43,6 +34,12 @@ export default async function main(app: Application) {
     }),
     player
   );
+}
+
+export default async function main(app: Application) {
+  await RES.load();
+
+  init(app);
 
   ECS.system.add(ControlSystem());
   ECS.system.add(ShootSystem());
@@ -50,9 +47,15 @@ export default async function main(app: Application) {
   ECS.system.add(CollisionSystem(['player', 'bullet']));
   ECS.system.add(BoundarySystem());
   ECS.system.add(DebugSystem());
-
   ECS.system.add(TransformSystem());
   ECS.system.add(AreaObserveSystem());
+
+  const layers = new Map([
+    ['player', new Container()],
+    ['bullet', new Container()],
+    ['debug', new Container()],
+  ]);
+  app.stage.addChild(...layers.values());
   ECS.system.add(RenderSystem(layers));
 
   app.ticker.add(ECS.update);

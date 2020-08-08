@@ -39,9 +39,7 @@ export default function Bullet({ screen }: Application) {
   ECS.component.add(
     AreaListener({
       rect: { x: 0, y: 0, w: screen.width, h: screen.height },
-      onLeave: () => {
-        ECS.entity.remove(entity);
-      },
+      onLeave: () => ECS.entity.remove(entity),
     }),
     entity
   );
