@@ -4,6 +4,7 @@ import ECS from '@kayac/ecs.js';
 import { Renderer, Transform, Speed, Collider, Debug } from '../components';
 import { AreaListener } from '../components/areaListener';
 import { Circle, Vec2 } from '../constants';
+import { nextFrame } from '../functions';
 
 function View() {
   const texture = RES.get('spritesheet', 'MARION_BULLET_01') as Spritesheet;
@@ -30,7 +31,6 @@ function Impact([x, y]: Vec2) {
   const it = new AnimatedSprite(texture.animations['impact']);
   it.scale.set(1.2);
   it.updateAnchor = true;
-  it.animationSpeed = 1;
   it.loop = false;
 
   it.position.set(x, y);
@@ -52,12 +52,11 @@ export default function Bullet({ screen, stage }: Application) {
       group: 'enemy',
       shape: { radius: 10, position: [0, -30] } as Circle,
       onEnter: () => {
-        const impact = Impact([view.position.x, view.position.y]);
+        ECS.entity.remove(entity);
 
+        const impact = Impact([view.position.x, view.position.y]);
         impact.onComplete = () => stage.removeChild(impact);
         stage.addChild(impact);
-
-        ECS.entity.remove(entity);
       },
     }),
     entity
