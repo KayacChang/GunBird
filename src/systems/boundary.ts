@@ -17,11 +17,10 @@ export function BoundarySystem(): ISystem {
 
         const [x, y] = transform.position;
 
-        transform.position = [
-          //
-          clamp(x, rect.x, rect.w),
-          clamp(y, rect.y, rect.h),
-        ];
+        const [rx, ry] = rect.position;
+        const [rw, rh] = rect.size;
+
+        transform.position = [clamp(x, rx, rw), clamp(y, ry, rh)];
       });
     },
   };

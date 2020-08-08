@@ -1,7 +1,8 @@
 import { Spritesheet, AnimatedSprite, Container } from 'pixi.js';
 import RES from '../resources';
 import ECS from '@kayac/ecs.js';
-import { Renderer } from '../components';
+import { Renderer, Collider, Debug } from '../components';
+import { Circle } from '../constants';
 
 function View() {
   const texture = RES.get('spritesheet', 'BALLOON') as Spritesheet;
@@ -31,6 +32,16 @@ export default function Enemy() {
     }),
     entity
   );
+
+  ECS.component.add(
+    Collider({
+      group: 'enemy',
+      shape: { position: [0, -10], radius: view.width / 2 } as Circle,
+    }),
+    entity
+  );
+
+  // ECS.component.add(Debug(), entity);
 
   return entity;
 }

@@ -1,8 +1,9 @@
 import { Spritesheet, AnimatedSprite, Container, Application } from 'pixi.js';
 import RES from '../resources';
 import ECS from '@kayac/ecs.js';
-import { Renderer, Transform, Speed, Collider } from '../components';
+import { Renderer, Transform, Speed, Collider, Debug } from '../components';
 import { AreaListener } from '../components/areaListener';
+import { Circle } from '../constants';
 
 function View() {
   const texture = RES.get('spritesheet', 'MARION_BULLET_01') as Spritesheet;
@@ -31,14 +32,16 @@ export default function Bullet({ screen }: Application) {
   ECS.component.add(Speed(60), entity);
   ECS.component.add(
     Collider({
-      group: 'bullet',
-      shape: { r: 10, c: [0, -30] },
+      group: 'enemy',
+      shape: { radius: 10, position: [0, -30] } as Circle,
+      onEnter: () => ECS.entity.remove(entity),
     }),
     entity
   );
+  // ECS.component.add(Debug(), entity);
   ECS.component.add(
     AreaListener({
-      rect: { x: 0, y: 0, w: screen.width, h: screen.height },
+      rect: { position: [0, 0], size: [screen.width, screen.height] },
       onLeave: () => ECS.entity.remove(entity),
     }),
     entity

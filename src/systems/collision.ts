@@ -1,13 +1,6 @@
 import ECS, { ISystem, IEntity } from '@kayac/ecs.js';
-import { ICollider } from '../components';
+import { ICollider, ITransform } from '../components';
 import { hitTest } from '../functions';
-
-function detectCollision(a: ICollider, b: ICollider) {
-  if (hitTest(a.shape, b.shape)) {
-    a.isColliding = true;
-    b.isColliding = true;
-  }
-}
 
 export function CollisionSystem(groups: string[]): ISystem {
   return {
@@ -29,9 +22,16 @@ export function CollisionSystem(groups: string[]): ISystem {
           for (let i = 0; i < group.length; i++) {
             for (let j = i + 1; j < group.length; j++) {
               const colliderA = ECS.component.get('collider', group[i]) as ICollider;
-              const colliderB = ECS.component.get('collider', group[j]) as ICollider;
+              const transformA = ECS.component.get('transform', group[i]) as ITransform;
+              const shapeA = { ...colliderA.shape, position: transformA.position };
 
-              detectCollision(colliderA, colliderB);
+              const colliderB = ECS.component.get('collider', group[j]) as ICollider;
+              const transformB = ECS.component.get('transform', group[j]) as ITransform;
+              const shapeB = { ...colliderB.shape, position: transformB.position };
+
+              const isHit = hitTest(shapeA, shapeB);
+              colliderA.isColliding = colliderA.isColliding || isHit;
+              colliderB.isColliding = colliderB.isColliding || isHit;
             }
           }
         });

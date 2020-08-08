@@ -1,13 +1,15 @@
 import ECS, { ISystem, IEntity } from '@kayac/ecs.js';
 import { ITransform, IAreaListener } from '../components/types';
-import { Vector2, Rect } from '../constants';
+import { Vec2, Rect } from '../constants';
 
-function inRange([min, max]: Vector2, num: number) {
+function inRange([min, max]: Vec2, num: number) {
   return min <= num && num <= max;
 }
 
-function inArea(area: Rect, [x, y]: Vector2) {
-  return inRange([area.x, area.x + area.w], x) && inRange([area.y, area.y + area.h], y);
+function inArea(area: Rect, [x, y]: Vec2) {
+  const [ax, ay] = area.position;
+  const [aw, ah] = area.size;
+  return inRange([ax, ax + aw], x) && inRange([ay, ay + ah], y);
 }
 
 export function AreaObserveSystem(): ISystem {

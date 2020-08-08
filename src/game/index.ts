@@ -28,10 +28,8 @@ function init(app: Application) {
   );
   ECS.component.add(
     Boundary({
-      x: app.screen.x,
-      y: app.screen.y,
-      w: app.screen.width,
-      h: app.screen.height,
+      position: [app.screen.x, app.screen.y],
+      size: [app.screen.width, app.screen.height],
     }),
     player
   );
@@ -53,7 +51,7 @@ export default async function main(app: Application) {
   ECS.system.add(ControlSystem());
   ECS.system.add(ShootSystem());
   ECS.system.add(MovementSystem());
-  ECS.system.add(CollisionSystem(['player', 'bullet']));
+  ECS.system.add(CollisionSystem(['player', 'enemy']));
   ECS.system.add(BoundarySystem());
   ECS.system.add(DebugSystem());
   ECS.system.add(TransformSystem());
@@ -61,8 +59,8 @@ export default async function main(app: Application) {
 
   const layers = new Map([
     ['player', new Container()],
-    ['bullet', new Container()],
     ['enemy', new Container()],
+    ['bullet', new Container()],
     ['debug', new Container()],
   ]);
   app.stage.addChild(...layers.values());

@@ -1,6 +1,6 @@
 import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
 import { ISpeed, IShoot, ITransform } from '../components';
-import { Vector2 } from '../constants';
+import { Vec2 } from '../constants';
 import { normalize } from '../functions';
 
 function KeyBoard() {
@@ -12,7 +12,7 @@ function KeyBoard() {
   return () => keys;
 }
 
-function maptoDir(keys: Set<string>): Vector2 {
+function maptoDir(keys: Set<string>): Vec2 {
   return [
     //
     Number(keys.has('d')) - Number(keys.has('a')),

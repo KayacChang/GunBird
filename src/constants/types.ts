@@ -5,18 +5,16 @@ export interface Size {
   height: number;
 }
 
-export type Vector2 = Pair;
+export type Vec2 = Pair;
 
-export interface Geometry {}
+export interface Geometry {
+  position: Vec2;
+}
 
 export interface Circle extends Geometry {
-  c: Vector2;
-  r: number;
+  radius: number;
 }
 
 export interface Rect extends Geometry {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
+  size: Vec2;
 }

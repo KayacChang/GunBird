@@ -1,6 +1,6 @@
 import { IComponent, IEntity } from '@kayac/ecs.js';
 import { DisplayObject } from 'pixi.js';
-import { Vector2, Rect, Geometry } from '../constants';
+import { Vec2, Rect, Geometry } from '../constants';
 
 export interface IRenderer extends IComponent {
   id: 'renderer';
@@ -10,7 +10,7 @@ export interface IRenderer extends IComponent {
 
 export interface ITransform extends IComponent {
   id: 'transform';
-  position: Vector2;
+  position: Vec2;
 }
 
 export interface IControl extends IComponent {
@@ -19,7 +19,7 @@ export interface IControl extends IComponent {
 
 export interface IMovement extends IComponent {
   id: 'movement';
-  vector: Vector2;
+  vector: Vec2;
 }
 
 export interface ISpeed extends IComponent {
@@ -44,7 +44,10 @@ export interface ICollider extends IComponent {
   group: string;
   shape: Geometry;
   isColliding: boolean;
-  debug: IEntity;
+}
+
+export interface IDebug extends IComponent {
+  id: 'debug';
 }
 
 export interface IAreaListener extends IComponent {
