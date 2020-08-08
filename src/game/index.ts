@@ -15,6 +15,7 @@ import {
 } from '../systems';
 import ECS from '@kayac/ecs.js';
 import { Transform, Boundary, Shoot } from '../components';
+import Enemy from './enemy';
 
 function init(app: Application) {
   const player = Character();
@@ -33,6 +34,14 @@ function init(app: Application) {
       h: app.screen.height,
     }),
     player
+  );
+
+  const enemy = Enemy();
+  ECS.component.add(
+    Transform({
+      position: [app.screen.width / 2, app.screen.height / 4],
+    }),
+    enemy
   );
 }
 
@@ -53,6 +62,7 @@ export default async function main(app: Application) {
   const layers = new Map([
     ['player', new Container()],
     ['bullet', new Container()],
+    ['enemy', new Container()],
     ['debug', new Container()],
   ]);
   app.stage.addChild(...layers.values());

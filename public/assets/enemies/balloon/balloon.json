@@ -1,0 +1,78 @@
+{"frames": {
+
+"hit.png":
+{
+	"frame": {"x":1,"y":1,"w":42,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":53},
+	"sourceSize": {"w":42,"h":53},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"hurt.png":
+{
+	"frame": {"x":45,"y":1,"w":42,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":53},
+	"sourceSize": {"w":42,"h":53},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"idle_01.png":
+{
+	"frame": {"x":89,"y":1,"w":42,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":53},
+	"sourceSize": {"w":42,"h":53},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"idle_02.png":
+{
+	"frame": {"x":133,"y":1,"w":42,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":53},
+	"sourceSize": {"w":42,"h":53},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"idle_03.png":
+{
+	"frame": {"x":177,"y":1,"w":42,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":53},
+	"sourceSize": {"w":42,"h":53},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"idle_04.png":
+{
+	"frame": {"x":221,"y":1,"w":42,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":53},
+	"sourceSize": {"w":42,"h":53},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"idle_05.png":
+{
+	"frame": {"x":265,"y":1,"w":42,"h":53},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":42,"h":53},
+	"sourceSize": {"w":42,"h":53},
+	"anchor": {"x":0.5,"y":0.5}
+}},
+"animations": {
+	"idle": ["idle_01.png","idle_02.png","idle_03.png","idle_04.png","idle_05.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "balloon.png",
+	"format": "RGBA8888",
+	"size": {"w":308,"h":55},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:763898ed5bec3ed8dd23e57e417dddc0:b264fd04e9cc379b8aa59eb2b0bed30c:fad37c6bedacab89c5318c314b7d1c71$"
+}
+}
