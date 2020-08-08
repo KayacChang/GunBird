@@ -6,3 +6,4 @@ export * from './shoot';
 export * from './collision';
 export * from './debug';
 export * from './boundary';
+export * from './area_observe';

@@ -4,14 +4,6 @@ import { Graphics } from 'pixi.js';
 import { isCircle } from '../functions';
 import ECS from '@kayac/ecs.js';
 
-type Props = {
-  group: string;
-  shape: Geometry;
-  onEnter?: () => void;
-  onStay?: () => void;
-  onLeave?: () => void;
-};
-
 function drawCircle({ c, r }: Circle) {
   const [x, y] = c;
 
@@ -43,44 +35,46 @@ function Debug(shape: Geometry) {
   return entity;
 }
 
-function observe(onEnter: Function, onStay: Function, onLeave: Function) {
-  return function view(prev = false) {
-    return {
-      get isColliding() {
-        return prev;
-      },
-      set isColliding(cur: boolean) {
-        if (!prev && cur) {
-          onEnter();
-        }
-
-        if (prev && cur) {
-          onStay();
-        }
-
-        if (prev && !cur) {
-          onLeave();
-        }
-
-        prev = cur;
-      },
-    };
-  };
-}
+type Props = {
+  group: string;
+  shape: Geometry;
+  onEnter?: () => void;
+  onStay?: () => void;
+  onLeave?: () => void;
+};
 
 export function Collider({
   group,
   shape,
-  onEnter = Function,
-  onStay = Function,
-  onLeave = Function,
+  onEnter = () => {},
+  onStay = () => {},
+  onLeave = () => {},
 }: Props): ICollider {
+  let prev = false;
+
   return {
     id: 'collider',
     group,
     shape,
 
-    ...observe(onEnter, onStay, onLeave)(),
+    get isColliding() {
+      return prev;
+    },
+    set isColliding(cur: boolean) {
+      if (!prev && cur) {
+        onEnter();
+      }
+
+      if (prev && cur) {
+        onStay();
+      }
+
+      if (prev && !cur) {
+        onLeave();
+      }
+
+      prev = cur;
+    },
 
     debug: Debug(shape),
   };

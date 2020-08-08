@@ -46,3 +46,9 @@ export interface ICollider extends IComponent {
   isColliding: boolean;
   debug: IEntity;
 }
+
+export interface IAreaListener extends IComponent {
+  id: 'area_listener';
+  rect: Rect;
+  hasEnter: boolean;
+}

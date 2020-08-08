@@ -1,11 +1,16 @@
-import { Container } from 'pixi.js';
+import { Container, DisplayObject } from 'pixi.js';
 import ECS, { ISystem, IEntity } from '@kayac/ecs.js';
 import { IRenderer } from '../components';
 
 type Layers = Map<string, Container>;
 
+type Cache = {
+  view: DisplayObject;
+  layer: string;
+};
+
 export function RenderSystem(layers: Layers): ISystem {
-  const cache = new Set<IEntity>();
+  const cache = new Map<IEntity, Cache>();
 
   return {
     id: RenderSystem.name,
@@ -14,13 +19,13 @@ export function RenderSystem(layers: Layers): ISystem {
 
     update(delta: number, entities: IEntity[]) {
       //
-      Array.from(cache)
-        .filter((entity) => !entities.includes(entity))
-        .forEach((entity) => {
-          const { view, layer } = ECS.component.get('renderer', entity) as IRenderer;
-
+      for (const [entity, { view, layer }] of cache) {
+        if (!entities.includes(entity)) {
           layers.get(layer)?.removeChild(view);
-        });
+
+          cache.delete(entity);
+        }
+      }
 
       entities.forEach((entity) => {
         const { view, layer } = ECS.component.get('renderer', entity) as IRenderer;
@@ -31,7 +36,7 @@ export function RenderSystem(layers: Layers): ISystem {
         }
 
         container.addChild(view);
-        cache.add(entity);
+        cache.set(entity, { view, layer });
       });
     },
   };
