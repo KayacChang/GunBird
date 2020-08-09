@@ -51,7 +51,7 @@ export default async function main(app: Application) {
   ECS.system.add(ControlSystem());
   ECS.system.add(ShootSystem());
   ECS.system.add(MovementSystem());
-  ECS.system.add(CollisionSystem(['player', 'enemy']));
+  ECS.system.add(CollisionSystem(['player', 'enemy', 'bullet']));
   ECS.system.add(BoundarySystem());
   ECS.system.add(DebugSystem());
   ECS.system.add(TransformSystem());

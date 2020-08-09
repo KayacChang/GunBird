@@ -4,7 +4,7 @@ import { nextFrame } from '../functions';
 
 type Props = {
   layer: string;
-  masks: string[];
+  masks?: string[];
   shape: Geometry;
   onEnter?: () => void;
   onStay?: () => void;
@@ -13,7 +13,7 @@ type Props = {
 
 export function Collider({
   layer,
-  masks,
+  masks = [],
   shape,
   onEnter = () => {},
   onStay = () => {},

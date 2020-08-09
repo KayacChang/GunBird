@@ -50,7 +50,6 @@ export default function Bullet({ screen, stage }: Application) {
   ECS.component.add(
     Collider({
       layer: 'bullet',
-      masks: ['enemy'],
       shape: { radius: 10, position: [0, -30] } as Circle,
       onEnter: () => {
         ECS.entity.remove(entity);
