@@ -44,7 +44,7 @@ export interface ICollider extends IComponent {
   layer: string;
   masks: string[];
   shape: Geometry;
-  isColliding: boolean;
+  colliding: IEntity[];
 }
 
 export interface IDebug extends IComponent {
@@ -55,4 +55,9 @@ export interface IAreaListener extends IComponent {
   id: 'area_listener';
   rect: Rect;
   hasEnter: boolean;
+}
+
+export interface IStatus extends IComponent {
+  id: 'status';
+  life: number;
 }

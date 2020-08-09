@@ -1,10 +1,9 @@
 import { Spritesheet, AnimatedSprite, Container, Application } from 'pixi.js';
 import RES from '../resources';
 import ECS from '@kayac/ecs.js';
-import { Renderer, Transform, Speed, Collider, Debug } from '../components';
+import { Renderer, Transform, Speed, Collider } from '../components';
 import { AreaListener } from '../components/areaListener';
 import { Circle, Vec2 } from '../constants';
-import { nextFrame } from '../functions';
 
 function View() {
   const texture = RES.get('spritesheet', 'MARION_BULLET_01') as Spritesheet;

@@ -22,7 +22,7 @@ export default function Character() {
   ECS.component.add(Control(), entity);
   ECS.component.add(Speed(5), entity);
   ECS.component.add(Collider({ layer: 'player', shape: { radius: 10, position: [0, 0] } as Circle }), entity);
-  ECS.component.add(Debug(), entity);
+  // ECS.component.add(Debug(), entity);
 
   return entity;
 }

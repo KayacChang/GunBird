@@ -21,22 +21,32 @@ export function CollisionSystem(layers: string[]): ISystem {
         })
       );
 
-      entities.forEach((entity) => {
-        const colliderA = ECS.component.get('collider', entity) as ICollider;
-        const transformA = ECS.component.get('transform', entity) as ITransform;
-        const shapeA = { ...colliderA.shape, position: transformA.position };
+      const colliding = new Map<IEntity, IEntity[]>();
+
+      entities.forEach((entityA) => {
+        const colliderA = ECS.component.get('collider', entityA) as ICollider;
 
         colliderA.masks.forEach((mask) => {
-          map.get(mask)?.forEach((entity) => {
-            const colliderB = ECS.component.get('collider', entity) as ICollider;
-            const transformB = ECS.component.get('transform', entity) as ITransform;
+          const transformA = ECS.component.get('transform', entityA) as ITransform;
+          const shapeA = { ...colliderA.shape, position: transformA.position };
+
+          map.get(mask)?.forEach((entityB) => {
+            const colliderB = ECS.component.get('collider', entityB) as ICollider;
+            const transformB = ECS.component.get('transform', entityB) as ITransform;
             const shapeB = { ...colliderB.shape, position: transformB.position };
 
-            const isHit = hitTest(shapeA, shapeB);
-            colliderA.isColliding = colliderA.isColliding || isHit;
-            colliderB.isColliding = colliderB.isColliding || isHit;
+            if (hitTest(shapeA, shapeB)) {
+              colliding.set(entityA, [...(colliding.get(entityA) || []), entityB]);
+              colliding.set(entityB, [...(colliding.get(entityB) || []), entityA]);
+            }
           });
         });
+      });
+
+      colliding.forEach((targets, entity) => {
+        const collider = ECS.component.get('collider', entity) as ICollider;
+
+        collider.colliding = targets;
       });
     },
   };

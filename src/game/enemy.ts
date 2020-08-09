@@ -1,7 +1,7 @@
 import { Spritesheet, AnimatedSprite, Container } from 'pixi.js';
 import RES from '../resources';
 import ECS from '@kayac/ecs.js';
-import { Renderer, Collider, Debug } from '../components';
+import { Renderer, Collider, Status, IStatus } from '../components';
 import { Circle } from '../constants';
 
 function View() {
@@ -25,6 +25,8 @@ export default function Enemy() {
 
   const entity = ECS.entity.create();
 
+  ECS.component.add(Status({ life: 10 }), entity);
+
   ECS.component.add(
     Renderer({
       view,
@@ -38,7 +40,14 @@ export default function Enemy() {
       layer: 'enemy',
       masks: ['bullet'],
       shape: { position: [0, -10], radius: view.width / 2 } as Circle,
-      onEnter: () => ECS.entity.remove(entity),
+      onEnter: () => {
+        const status = ECS.component.get('status', entity) as IStatus;
+        status.life -= 1;
+
+        if (status.life <= 0) {
+          ECS.entity.remove(entity);
+        }
+      },
     }),
     entity
   );
