@@ -3,7 +3,8 @@ import { ICollider } from '.';
 import { nextFrame } from '../functions';
 
 type Props = {
-  group: string;
+  layer: string;
+  masks: string[];
   shape: Geometry;
   onEnter?: () => void;
   onStay?: () => void;
@@ -11,7 +12,8 @@ type Props = {
 };
 
 export function Collider({
-  group,
+  layer,
+  masks,
   shape,
   onEnter = () => {},
   onStay = () => {},
@@ -21,7 +23,8 @@ export function Collider({
 
   return {
     id: 'collider',
-    group,
+    layer,
+    masks,
     shape,
 
     get isColliding() {

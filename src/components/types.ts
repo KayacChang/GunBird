@@ -41,7 +41,8 @@ export interface IBoundary extends IComponent {
 
 export interface ICollider extends IComponent {
   id: 'collider';
-  group: string;
+  layer: string;
+  masks: string[];
   shape: Geometry;
   isColliding: boolean;
 }

@@ -35,8 +35,10 @@ export default function Enemy() {
 
   ECS.component.add(
     Collider({
-      group: 'enemy',
+      layer: 'enemy',
+      masks: ['bullet'],
       shape: { position: [0, -10], radius: view.width / 2 } as Circle,
+      onEnter: () => ECS.entity.remove(entity),
     }),
     entity
   );
