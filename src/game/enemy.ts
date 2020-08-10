@@ -36,6 +36,8 @@ function View() {
     idle.visible = true;
   });
 
+  it.once('dead', () => Explosion([it.position.x, it.position.y]));
+
   return it;
 }
 
@@ -69,8 +71,7 @@ export default function Enemy() {
         }
 
         if (current <= 0) {
-          const { position } = ECS.component.get('transform', entity) as ITransform;
-          Explosion(position);
+          view.emit('dead');
 
           ECS.entity.remove(entity);
         }
