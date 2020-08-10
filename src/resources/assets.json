@@ -18,5 +18,9 @@
   {
     "name": "BULLET_IMPACT",
     "url": "assets/effects/impact.json"
+  },
+  {
+    "name": "POWER_UP",
+    "url": "assets/pickup/powerup.json"
   }
 ]

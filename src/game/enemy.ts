@@ -1,7 +1,23 @@
+import RES from '../resources';
 import ECS from '@kayac/ecs.js';
 import { Renderer, Collider, Status, IStatus, Transform } from '../components';
-import { Circle } from '../constants';
-import { Container } from 'pixi.js';
+import { Circle, Vec2 } from '../constants';
+import { Container, Spritesheet, AnimatedSprite } from 'pixi.js';
+
+function PowerUp(position: Vec2) {
+  const texture = RES.get('spritesheet', 'POWER_UP') as Spritesheet;
+
+  const view = new AnimatedSprite(texture.animations['powerup']);
+  view.scale.set(2);
+  view.updateAnchor = true;
+  view.play();
+
+  const entity = ECS.entity.create();
+  ECS.component.add(Renderer({ view, layer: 'pickup' }), entity);
+  ECS.component.add(Transform({ position }), entity);
+
+  return entity;
+}
 
 export default function Enemy<T extends Container>(view: T) {
   const entity = ECS.entity.create();
@@ -16,6 +32,8 @@ export default function Enemy<T extends Container>(view: T) {
 
         if (current <= 0) {
           view.emit('dead');
+
+          PowerUp([view.position.x, view.position.y]);
 
           ECS.entity.remove(entity);
         }

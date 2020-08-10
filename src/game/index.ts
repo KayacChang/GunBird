@@ -55,6 +55,7 @@ export default async function main(app: Application) {
   ECS.system.add(AreaObserveSystem());
 
   const layers = new Map([
+    ['pickup', new Container()],
     ['player', new Container()],
     ['enemy', new Container()],
     ['bullet', new Container()],
