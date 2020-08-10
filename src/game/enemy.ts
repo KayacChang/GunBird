@@ -1,7 +1,7 @@
 import { Spritesheet, AnimatedSprite, Container, Sprite } from 'pixi.js';
 import RES from '../resources';
 import ECS from '@kayac/ecs.js';
-import { Renderer, Collider, Status, IStatus, Transform, ITransform } from '../components';
+import { Renderer, Collider, Status, IStatus, Transform } from '../components';
 import { Circle, Vec2 } from '../constants';
 import { nextFrame } from '../functions';
 

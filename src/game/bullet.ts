@@ -1,7 +1,7 @@
 import { Spritesheet, AnimatedSprite, Container, Application } from 'pixi.js';
 import RES from '../resources';
 import ECS from '@kayac/ecs.js';
-import { Renderer, Transform, Speed, Collider } from '../components';
+import { Renderer, Transform, Speed, Collider, ITransform } from '../components';
 import { AreaListener } from '../components/areaListener';
 import { Circle, Vec2 } from '../constants';
 
@@ -24,21 +24,22 @@ function View() {
   return it;
 }
 
-function Impact([x, y]: Vec2) {
+function Impact(position: Vec2) {
   const texture = RES.get('spritesheet', 'BULLET_IMPACT') as Spritesheet;
 
-  const it = new AnimatedSprite(texture.animations['impact']);
-  it.scale.set(1.5);
-  it.updateAnchor = true;
-  it.loop = false;
+  const view = new AnimatedSprite(texture.animations['impact']);
+  view.scale.set(1.5);
+  view.updateAnchor = true;
+  view.loop = false;
+  view.play();
 
-  it.position.set(x, y);
-  it.play();
-
-  return it;
+  const entity = ECS.entity.create();
+  ECS.component.add(Renderer({ view, layer: 'effect' }), entity);
+  ECS.component.add(Transform({ position }), entity);
+  view.onComplete = () => ECS.entity.remove(entity);
 }
 
-export default function Bullet({ screen, stage }: Application) {
+export default function Bullet({ screen }: Application) {
   const entity = ECS.entity.create();
 
   const view = View();
@@ -51,11 +52,10 @@ export default function Bullet({ screen, stage }: Application) {
       layer: 'bullet',
       shape: { radius: 10, position: [0, -30] } as Circle,
       onEnter: () => {
-        ECS.entity.remove(entity);
+        const { position } = ECS.component.get('transform', entity) as ITransform;
+        Impact(position);
 
-        const impact = Impact([view.position.x, view.position.y]);
-        impact.onComplete = () => stage.removeChild(impact);
-        stage.addChild(impact);
+        ECS.entity.remove(entity);
       },
     }),
     entity
