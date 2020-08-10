@@ -61,3 +61,8 @@ export interface IStatus extends IComponent {
   id: 'status';
   life: number;
 }
+
+export interface IPickup extends IComponent {
+  id: 'pickup';
+  type: 'powerup';
+}

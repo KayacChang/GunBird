@@ -1,7 +1,6 @@
 import { Application, Container } from 'pixi.js';
 import RES from '../resources';
 import Character from './character';
-import Bullet from './bullet';
 import {
   RenderSystem,
   TransformSystem,
@@ -14,26 +13,12 @@ import {
   AreaObserveSystem,
 } from '../systems';
 import ECS from '@kayac/ecs.js';
-import { Transform, Boundary, Shoot, ITransform } from '../components';
+import { ITransform } from '../components';
 import Enemy from './enemy';
-import { Trump_Airship } from '../models';
+import { Trump_Airship, Marion } from '../models';
 
 function init(app: Application) {
-  const player = Character();
-  ECS.component.add(Shoot({ fireRate: 8, bullet: () => Bullet(app) }), player);
-  ECS.component.add(
-    Transform({
-      position: [app.screen.width / 2, app.screen.height / 2],
-    }),
-    player
-  );
-  ECS.component.add(
-    Boundary({
-      position: [app.screen.x, app.screen.y],
-      size: [app.screen.width, app.screen.height],
-    }),
-    player
-  );
+  const player = Character(app, Marion());
 
   const enemy = Enemy(Trump_Airship());
   const transform = ECS.component.get('transform', enemy) as ITransform;
@@ -48,7 +33,7 @@ export default async function main(app: Application) {
   ECS.system.add(ControlSystem());
   ECS.system.add(ShootSystem());
   ECS.system.add(MovementSystem());
-  ECS.system.add(CollisionSystem(['player', 'enemy', 'bullet']));
+  ECS.system.add(CollisionSystem(['player', 'enemy', 'bullet', 'pickup']));
   ECS.system.add(BoundarySystem());
   ECS.system.add(DebugSystem());
   ECS.system.add(TransformSystem());

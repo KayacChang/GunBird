@@ -1,6 +1,6 @@
 import RES from '../resources';
 import ECS from '@kayac/ecs.js';
-import { Renderer, Collider, Status, IStatus, Transform } from '../components';
+import { Renderer, Collider, Status, IStatus, Transform, Debug, Pickup } from '../components';
 import { Circle, Vec2 } from '../constants';
 import { Container, Spritesheet, AnimatedSprite } from 'pixi.js';
 
@@ -15,6 +15,9 @@ function PowerUp(position: Vec2) {
   const entity = ECS.entity.create();
   ECS.component.add(Renderer({ view, layer: 'pickup' }), entity);
   ECS.component.add(Transform({ position }), entity);
+  ECS.component.add(Collider({ layer: 'pickup', shape: { position: [0, 0], radius: 20 } as Circle }), entity);
+  ECS.component.add(Pickup('powerup'), entity);
+  ECS.component.add(Debug(), entity);
 
   return entity;
 }

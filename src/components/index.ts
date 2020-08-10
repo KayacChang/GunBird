@@ -9,3 +9,4 @@ export * from './collider';
 export * from './boundary';
 export * from './debug';
 export * from './status';
+export * from './pickup';
