@@ -1,14 +1,14 @@
 import { Spritesheet, AnimatedSprite, Container, Sprite } from 'pixi.js';
 import RES from '../resources';
 import ECS from '@kayac/ecs.js';
-import { Renderer, Collider, Status, IStatus } from '../components';
-import { Circle } from '../constants';
+import { Renderer, Collider, Status, IStatus, Transform, ITransform } from '../components';
+import { Circle, Vec2 } from '../constants';
 import { nextFrame } from '../functions';
 
 function View() {
-  const texture = RES.get('spritesheet', 'BALLOON') as Spritesheet;
-
   const it = new Container();
+
+  const texture = RES.get('spritesheet', 'BALLOON') as Spritesheet;
 
   const idle = new AnimatedSprite(texture.animations['idle']);
   idle.scale.set(2);
@@ -20,11 +20,11 @@ function View() {
   hit.scale.set(2);
   hit.visible = false;
 
-  const hurt = new Sprite(texture.textures['hurt.png']);
-  hurt.scale.set(2);
-  hurt.visible = false;
+  const danger = new Sprite(texture.textures['hurt.png']);
+  danger.scale.set(2);
+  danger.visible = false;
 
-  it.addChild(hurt, hit, idle);
+  it.addChild(danger, hit, idle);
 
   it.on('hit', async () => {
     idle.visible = false;
@@ -39,6 +39,22 @@ function View() {
   return it;
 }
 
+function Explosion(position: Vec2) {
+  const texture = RES.get('spritesheet', 'BALLOON_EXPLOSION') as Spritesheet;
+
+  const view = new AnimatedSprite(texture.animations['explosion']);
+  view.scale.set(2);
+  view.updateAnchor = true;
+  view.loop = false;
+  view.play();
+
+  const entity = ECS.entity.create();
+  ECS.component.add(Renderer({ view, layer: 'effect' }), entity);
+  ECS.component.add(Transform({ position }), entity);
+
+  view.onComplete = () => ECS.entity.remove(entity);
+}
+
 export default function Enemy() {
   const view = View();
 
@@ -47,12 +63,15 @@ export default function Enemy() {
   ECS.component.add(
     Status({
       life: 17,
-      onLifeChange: (current, previous) => {
+      onLifeChange: async (current, previous) => {
         if (previous > current) {
           view.emit('hit');
         }
 
         if (current <= 0) {
+          const { position } = ECS.component.get('transform', entity) as ITransform;
+          Explosion(position);
+
           ECS.entity.remove(entity);
         }
       },
@@ -67,6 +86,8 @@ export default function Enemy() {
     }),
     entity
   );
+
+  ECS.component.add(Transform({}), entity);
 
   ECS.component.add(
     Collider({

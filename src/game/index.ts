@@ -14,7 +14,7 @@ import {
   AreaObserveSystem,
 } from '../systems';
 import ECS from '@kayac/ecs.js';
-import { Transform, Boundary, Shoot } from '../components';
+import { Transform, Boundary, Shoot, ITransform } from '../components';
 import Enemy from './enemy';
 
 function init(app: Application) {
@@ -35,12 +35,8 @@ function init(app: Application) {
   );
 
   const enemy = Enemy();
-  ECS.component.add(
-    Transform({
-      position: [app.screen.width / 2, app.screen.height / 4],
-    }),
-    enemy
-  );
+  const transform = ECS.component.get('transform', enemy) as ITransform;
+  transform.position = [app.screen.width / 2, app.screen.height / 4];
 }
 
 export default async function main(app: Application) {
@@ -61,6 +57,7 @@ export default async function main(app: Application) {
     ['player', new Container()],
     ['enemy', new Container()],
     ['bullet', new Container()],
+    ['effect', new Container()],
     ['debug', new Container()],
   ]);
   app.stage.addChild(...layers.values());
