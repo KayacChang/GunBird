@@ -16,6 +16,7 @@ import {
 import ECS from '@kayac/ecs.js';
 import { Transform, Boundary, Shoot, ITransform } from '../components';
 import Enemy from './enemy';
+import { Trump_Airship } from '../models';
 
 function init(app: Application) {
   const player = Character();
@@ -34,7 +35,7 @@ function init(app: Application) {
     player
   );
 
-  const enemy = Enemy();
+  const enemy = Enemy(Trump_Airship());
   const transform = ECS.component.get('transform', enemy) as ITransform;
   transform.position = [app.screen.width / 2, app.screen.height / 4];
 }
