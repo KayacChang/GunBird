@@ -28,7 +28,7 @@ function Impact([x, y]: Vec2) {
   const texture = RES.get('spritesheet', 'BULLET_IMPACT') as Spritesheet;
 
   const it = new AnimatedSprite(texture.animations['impact']);
-  it.scale.set(1.2);
+  it.scale.set(1.5);
   it.updateAnchor = true;
   it.loop = false;
 
