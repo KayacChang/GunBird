@@ -1,12 +1,17 @@
-import { Container, Application } from 'pixi.js';
+import { Application, Container, AnimatedSprite } from 'pixi.js';
 import { Renderer, Control, Speed, Collider, Transform, Boundary, Shoot, IPickup } from '../components';
 import ECS from '@kayac/ecs.js';
 import { Circle } from '../constants';
-import Bullet from './bullet';
 
-export default function Character<T extends Container>(app: Application, view: T) {
+type Props = {
+  character: Container;
+  bullet: () => Container;
+  impact: () => AnimatedSprite;
+};
+
+export default function Character(app: Application, { character, bullet, impact }: Props) {
   const entity = ECS.entity.create('marion');
-  ECS.component.add(Renderer({ view, layer: 'player' }), entity);
+  ECS.component.add(Renderer({ view: character, layer: 'player' }), entity);
   ECS.component.add(Control(), entity);
   ECS.component.add(Speed(5), entity);
   ECS.component.add(
@@ -28,7 +33,7 @@ export default function Character<T extends Container>(app: Application, view: T
     }),
     entity
   );
-  ECS.component.add(Shoot({ fireRate: 8, bullet: () => Bullet(app) }), entity);
+  ECS.component.add(Shoot({ fireRate: 8, bullet, impact }), entity);
   ECS.component.add(Transform({ position: [app.screen.width / 2, app.screen.height / 2] }), entity);
   ECS.component.add(
     Boundary({

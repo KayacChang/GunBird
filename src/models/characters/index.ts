@@ -1,3 +1,3 @@
-import Marion from './marion';
+import * as Marion from './marion';
 
 export { Marion };

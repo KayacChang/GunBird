@@ -18,7 +18,7 @@ import Enemy from './enemy';
 import { Trump_Airship, Marion } from '../models';
 
 function init(app: Application) {
-  const player = Character(app, Marion());
+  Character(app, { character: Marion.Character(), bullet: Marion.Bullet, impact: Marion.Impact });
 
   const enemy = Enemy(Trump_Airship());
   const transform = ECS.component.get('transform', enemy) as ITransform;
@@ -31,7 +31,7 @@ export default async function main(app: Application) {
   init(app);
 
   ECS.system.add(ControlSystem());
-  ECS.system.add(ShootSystem());
+  ECS.system.add(ShootSystem(app));
   ECS.system.add(MovementSystem());
   ECS.system.add(CollisionSystem(['player', 'enemy', 'bullet', 'pickup']));
   ECS.system.add(BoundarySystem());
