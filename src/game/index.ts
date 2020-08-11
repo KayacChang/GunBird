@@ -1,6 +1,5 @@
 import { Application, Container } from 'pixi.js';
 import RES from '../resources';
-import Character from './character';
 import {
   RenderSystem,
   TransformSystem,
@@ -18,7 +17,7 @@ import Enemy from './enemy';
 import { Trump_Airship, Marion } from '../models';
 
 function init(app: Application) {
-  Character(app, { character: Marion.Character(), bullet: Marion.Bullet, impact: Marion.Impact });
+  Marion(app);
 
   const enemy = Enemy(Trump_Airship());
   const transform = ECS.component.get('transform', enemy) as ITransform;

@@ -8,6 +8,10 @@
     "url": "assets/characters/marion/bullet_01.json"
   },
   {
+    "name": "MARION_BULLET_02",
+    "url": "assets/characters/marion/level02.json"
+  },
+  {
     "name": "BALLOON",
     "url": "assets/enemies/balloon/balloon.json"
   },

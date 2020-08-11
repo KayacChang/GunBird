@@ -1,12 +1,11 @@
 import { IShoot } from './types';
-import { Container, AnimatedSprite } from 'pixi.js';
+import { IEntity } from '@kayac/ecs.js';
 
 type Props = {
   fireRate: number;
-  bullet: () => Container;
-  impact: () => AnimatedSprite;
+  bullet: () => IEntity;
 };
 
-export function Shoot({ fireRate, bullet, impact }: Props): IShoot {
-  return { id: 'shoot', fireRate, coldDown: 0, fire: false, bullet, impact };
+export function Shoot({ fireRate, bullet }: Props): IShoot {
+  return { id: 'shoot', fireRate, coldDown: 0, fire: false, bullet };
 }

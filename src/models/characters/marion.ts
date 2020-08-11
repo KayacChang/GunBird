@@ -1,10 +1,24 @@
 import RES from '../../resources';
-import { Spritesheet, Container, AnimatedSprite } from 'pixi.js';
+import {
+  Renderer,
+  Control,
+  Speed,
+  Collider,
+  Transform,
+  Boundary,
+  Shoot,
+  IPickup,
+  ITransform,
+  Debug,
+} from '../../components';
+import ECS from '@kayac/ecs.js';
+import { Application, Spritesheet, Container, AnimatedSprite } from 'pixi.js';
+import { Circle, Vec2 } from '../../constants';
 
-export function Character() {
+export default function Character(app: Application) {
   const texture = RES.get('spritesheet', 'MARION_IDLE') as Spritesheet;
 
-  const it = new Container();
+  const view = new Container();
 
   const sprite = new AnimatedSprite(texture.animations['marion']);
   sprite.scale.set(2);
@@ -12,17 +26,68 @@ export function Character() {
   sprite.animationSpeed = 0.2;
   sprite.play();
 
-  it.addChild(sprite);
+  view.addChild(sprite);
 
-  return it;
+  const entity = ECS.entity.create('marion');
+  ECS.component.add(Renderer({ view, layer: 'player' }), entity);
+  ECS.component.add(Control(), entity);
+  ECS.component.add(Speed(5), entity);
+  ECS.component.add(
+    Collider({
+      layer: 'player',
+      masks: ['pickup'],
+      shape: { radius: 10, position: [0, 0] } as Circle,
+      onEnter: (colliding) => {
+        //
+        colliding.forEach((entity) => {
+          const pickup = ECS.component.get('pickup', entity) as IPickup;
+          if (pickup && pickup.type === 'powerup') {
+            console.log('power up');
+
+            ECS.entity.remove(entity);
+          }
+        });
+      },
+    }),
+    entity
+  );
+  ECS.component.add(Shoot({ fireRate: 8, bullet: Bullet02 }), entity);
+  ECS.component.add(Transform({ position: [app.screen.width / 2, app.screen.height / 2] }), entity);
+  ECS.component.add(
+    Boundary({
+      position: [app.screen.x, app.screen.y],
+      size: [app.screen.width, app.screen.height],
+    }),
+    entity
+  );
+  // ECS.component.add(Debug(), entity);
+
+  return entity;
 }
 
-export function Bullet() {
-  const texture = RES.get('spritesheet', 'MARION_BULLET_01') as Spritesheet;
+function Impact(position: Vec2) {
+  const texture = RES.get('spritesheet', 'BULLET_IMPACT') as Spritesheet;
 
-  const it = new Container();
+  const view = new AnimatedSprite(texture.animations['impact']);
+  view.scale.set(1.5);
+  view.updateAnchor = true;
+  view.loop = false;
+  view.play();
 
-  const sprite = new AnimatedSprite(texture.animations['bullet']);
+  const entity = ECS.entity.create();
+  ECS.component.add(Renderer({ view, layer: 'effect' }), entity);
+  ECS.component.add(Transform({ position }), entity);
+  view.onComplete = () => ECS.entity.remove(entity);
+
+  return entity;
+}
+
+function Bullet02() {
+  const texture = RES.get('spritesheet', 'MARION_BULLET_02') as Spritesheet;
+  const sprite = new AnimatedSprite(texture.animations['level02']);
+
+  const view = new Container();
+
   sprite.scale.set(2);
   sprite.updateAnchor = true;
   sprite.animationSpeed = 0.2;
@@ -31,19 +96,64 @@ export function Bullet() {
   // offset
   sprite.position.y = -40;
 
-  it.addChild(sprite);
+  view.addChild(sprite);
 
-  return it;
+  const entity = ECS.entity.create();
+  ECS.component.add(Renderer({ view, layer: 'bullet' }), entity);
+  ECS.component.add(Transform({}), entity);
+  ECS.component.add(Speed(60), entity);
+  ECS.component.add(
+    Collider({
+      layer: 'bullet',
+      shape: { radius: 15, position: [0, -30] } as Circle,
+      onEnter: () => {
+        const { position } = ECS.component.get('transform', entity) as ITransform;
+        Impact(position);
+
+        ECS.entity.remove(entity);
+      },
+    }),
+    entity
+  );
+  ECS.component.add(Debug(), entity);
+
+  return entity;
 }
 
-export function Impact() {
-  const texture = RES.get('spritesheet', 'BULLET_IMPACT') as Spritesheet;
+function Bullet01() {
+  const texture = RES.get('spritesheet', 'MARION_BULLET_01') as Spritesheet;
+  const sprite = new AnimatedSprite(texture.animations['bullet']);
 
-  const it = new AnimatedSprite(texture.animations['impact']);
-  it.scale.set(1.5);
-  it.updateAnchor = true;
-  it.loop = false;
-  it.play();
+  const view = new Container();
 
-  return it;
+  sprite.scale.set(2);
+  sprite.updateAnchor = true;
+  sprite.animationSpeed = 0.2;
+  sprite.play();
+
+  // offset
+  sprite.position.y = -40;
+
+  view.addChild(sprite);
+
+  const entity = ECS.entity.create();
+  ECS.component.add(Renderer({ view, layer: 'bullet' }), entity);
+  ECS.component.add(Transform({}), entity);
+  ECS.component.add(Speed(60), entity);
+  ECS.component.add(
+    Collider({
+      layer: 'bullet',
+      shape: { radius: 10, position: [0, -30] } as Circle,
+      onEnter: () => {
+        const { position } = ECS.component.get('transform', entity) as ITransform;
+        Impact(position);
+
+        ECS.entity.remove(entity);
+      },
+    }),
+    entity
+  );
+  // ECS.component.add(Debug(), entity);
+
+  return entity;
 }
