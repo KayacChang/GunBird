@@ -33,10 +33,10 @@
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
-	"image": "bullet_01.png",
+	"image": "level_01.png",
 	"format": "RGBA8888",
 	"size": {"w":25,"h":31},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:ef93151c4e71e2c97e400dd87109db7e:7155021fd009e0bc3134d615f910c29e:517a060cc8ce6a8b28655eb850e2016b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:73d6d587dddf8913c1dfddb619e08c71:7155021fd009e0bc3134d615f910c29e:33b8e044750c7b886b768ca32433a6d2$"
 }
 }

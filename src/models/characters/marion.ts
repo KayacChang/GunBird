@@ -10,6 +10,7 @@ import {
   IPickup,
   ITransform,
   Debug,
+  Velocity,
 } from '../../components';
 import ECS from '@kayac/ecs.js';
 import { Application, Spritesheet, Container, AnimatedSprite } from 'pixi.js';
@@ -51,7 +52,7 @@ export default function Character(app: Application) {
     }),
     entity
   );
-  ECS.component.add(Shoot({ fireRate: 8, bullet: Bullet02 }), entity);
+  ECS.component.add(Shoot({ fireRate: 8, bullet: Bullet03 }), entity);
   ECS.component.add(Transform({ position: [app.screen.width / 2, app.screen.height / 2] }), entity);
   ECS.component.add(
     Boundary({
@@ -78,6 +79,42 @@ function Impact(position: Vec2) {
   ECS.component.add(Renderer({ view, layer: 'effect' }), entity);
   ECS.component.add(Transform({ position }), entity);
   view.onComplete = () => ECS.entity.remove(entity);
+
+  return entity;
+}
+
+function Bullet03() {
+  const texture = RES.get('spritesheet', 'MARION_BULLET_03') as Spritesheet;
+  const bulletL = new AnimatedSprite(texture.animations['bullet_L']);
+  const bulletR = new AnimatedSprite(texture.animations['bullet_R']);
+
+  const view = new Container();
+  bulletL.scale.set(2);
+  bulletL.updateAnchor = true;
+  bulletL.animationSpeed = 0.2;
+  bulletL.play();
+  bulletL.position.y = -40;
+
+  view.addChild(bulletL);
+
+  const entity = ECS.entity.create();
+  ECS.component.add(Renderer({ view, layer: 'bullet' }), entity);
+  ECS.component.add(Transform({}), entity);
+  ECS.component.add(Velocity([-1 * Math.sin(Math.PI / 12) * 60, -1 * Math.cos(Math.PI / 12) * 60]), entity);
+  ECS.component.add(
+    Collider({
+      layer: 'bullet',
+      shape: { radius: 10, position: [-2, -30] } as Circle,
+      onEnter: () => {
+        const { position } = ECS.component.get('transform', entity) as ITransform;
+        Impact(position);
+
+        ECS.entity.remove(entity);
+      },
+    }),
+    entity
+  );
+  ECS.component.add(Debug(), entity);
 
   return entity;
 }

@@ -5,11 +5,19 @@
   },
   {
     "name": "MARION_BULLET_01",
-    "url": "assets/characters/marion/bullet_01.json"
+    "url": "assets/characters/marion/level_01.json"
   },
   {
     "name": "MARION_BULLET_02",
-    "url": "assets/characters/marion/level02.json"
+    "url": "assets/characters/marion/level_02.json"
+  },
+  {
+    "name": "MARION_BULLET_03",
+    "url": "assets/characters/marion/level_03.json"
+  },
+  {
+    "name": "MARION_BULLET_04",
+    "url": "assets/characters/marion/level_04.json"
   },
   {
     "name": "BALLOON",

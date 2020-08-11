@@ -27,6 +27,11 @@ export interface ISpeed extends IComponent {
   value: number;
 }
 
+export interface IVelocity extends IComponent {
+  id: 'velocity';
+  value: Vec2;
+}
+
 export interface IShoot extends IComponent {
   fireRate: number;
   coldDown: number;

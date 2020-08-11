@@ -3,6 +3,7 @@ export * from './control';
 export * from './movement';
 export * from './renderer';
 export * from './shoot';
+export * from './velocity';
 export * from './speed';
 export * from './transform';
 export * from './collider';
