@@ -1,6 +1,6 @@
 {"frames": {
 
-"bullet_01.png":
+"marion_bullet_L2_01.png":
 {
 	"frame": {"x":33,"y":1,"w":15,"h":28},
 	"rotated": false,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":15,"h":28},
 	"anchor": {"x":0.5,"y":0}
 },
-"bullet_02.png":
+"marion_bullet_L2_02.png":
 {
 	"frame": {"x":18,"y":1,"w":13,"h":29},
 	"rotated": false,
@@ -18,7 +18,7 @@
 	"sourceSize": {"w":13,"h":29},
 	"anchor": {"x":0.5,"y":0}
 },
-"bullet_03.png":
+"marion_bullet_L2_03.png":
 {
 	"frame": {"x":1,"y":1,"w":15,"h":29},
 	"rotated": false,
@@ -28,7 +28,7 @@
 	"anchor": {"x":0.5,"y":0}
 }},
 "animations": {
-	"bullet": ["bullet_01.png","bullet_02.png","bullet_03.png"]
+	"marion_bullet_L2": ["marion_bullet_L2_01.png","marion_bullet_L2_02.png","marion_bullet_L2_03.png"]
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
@@ -37,6 +37,6 @@
 	"format": "RGBA8888",
 	"size": {"w":49,"h":31},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:065ff4f77687c89c0a558770519bc6c6:2b0b93d3e2881d7587438dc4b719ce04:b6de5ae81feb1adb68d200cc1ab10bb5$"
+	"smartupdate": "$TexturePacker:SmartUpdate:812070c742f6f2d70dcbf02f79900d57:2b0b93d3e2881d7587438dc4b719ce04:b6de5ae81feb1adb68d200cc1ab10bb5$"
 }
 }

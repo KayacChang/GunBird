@@ -13,3 +13,11 @@ export function normalize([x, y]: Vec2) {
 
   return [x / len, y / len];
 }
+
+export function dir(radius: number): Vec2 {
+  return [Math.sin(radius), Math.cos(radius)];
+}
+
+export function mul([x1, y1]: Vec2, [x2, y2]: Vec2): Vec2 {
+  return [x1 * x2, y1 * y2];
+}

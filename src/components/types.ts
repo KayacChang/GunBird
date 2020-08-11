@@ -36,7 +36,8 @@ export interface IShoot extends IComponent {
   fireRate: number;
   coldDown: number;
   fire: boolean;
-  bullet: () => IEntity;
+  level: number;
+  bullet: () => IEntity[];
 }
 
 export interface IBoundary extends IComponent {

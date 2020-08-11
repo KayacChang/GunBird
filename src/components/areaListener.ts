@@ -1,5 +1,6 @@
 import { IAreaListener } from './types';
 import { Rect } from '../constants';
+import { nextFrame } from '../functions';
 
 interface Props {
   rect: Rect;
@@ -24,7 +25,7 @@ export function AreaListener({
     },
     set hasEnter(cur: boolean) {
       if (!prev && cur) {
-        onEnter();
+        nextFrame().then(onEnter);
       }
 
       if (prev && cur) {
@@ -32,7 +33,7 @@ export function AreaListener({
       }
 
       if (prev && !cur) {
-        onLeave();
+        nextFrame().then(onLeave);
       }
 
       prev = cur;
