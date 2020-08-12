@@ -1,6 +1,6 @@
 import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
-import { ITransform, IShoot, IVelocity } from '../components/types';
-import { Movement, AreaListener } from '../components';
+import { ITransform, IShoot } from '../components/types';
+import { AreaListener } from '../components';
 import { Application } from 'pixi.js';
 
 export function ShootSystem(app: Application): ISystem {
@@ -33,10 +33,6 @@ export function ShootSystem(app: Application): ISystem {
 
           const bulletTransform = ECS.component.get('transform', bullet) as ITransform;
           bulletTransform.position = transform.position;
-
-          const { value } = ECS.component.get('velocity', bullet) as IVelocity;
-          const [vx, vy] = value;
-          ECS.component.add(Movement([vx * delta, vy * delta]), bullet);
         });
 
         shoot.coldDown = shoot.fireRate;

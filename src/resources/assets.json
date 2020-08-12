@@ -20,6 +20,10 @@
     "url": "assets/characters/marion/level_04.json"
   },
   {
+    "name": "BG_CASTLE",
+    "url": "assets/background/bg_castle.png"
+  },
+  {
     "name": "BALLOON",
     "url": "assets/enemies/balloon/balloon.json"
   },

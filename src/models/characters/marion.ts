@@ -1,22 +1,10 @@
 import RES from '../../resources';
-import {
-  Renderer,
-  Control,
-  Speed,
-  Collider,
-  Transform,
-  Boundary,
-  Shoot,
-  IPickup,
-  ITransform,
-  Debug,
-  Velocity,
-  IShoot,
-} from '../../components';
+import { Renderer, Control, Speed, Collider, Transform, Boundary, Shoot, IPickup, IShoot } from '../../components';
 import ECS from '@kayac/ecs.js';
-import { Application, Spritesheet, Container, AnimatedSprite, Texture } from 'pixi.js';
-import { Circle, Vec2 } from '../../constants';
+import { Application, Spritesheet, Container, AnimatedSprite } from 'pixi.js';
+import { Circle } from '../../constants';
 import { clamp, mul, dir } from '../../functions';
+import Bullet from '../bullet';
 
 export default function Character(app: Application) {
   const texture = RES.get('spritesheet', 'MARION_IDLE') as Spritesheet;
@@ -69,63 +57,6 @@ export default function Character(app: Application) {
   return entity;
 }
 
-function Impact(position: Vec2) {
-  const texture = RES.get('spritesheet', 'BULLET_IMPACT') as Spritesheet;
-
-  const view = new AnimatedSprite(texture.animations['impact']);
-  view.scale.set(1.5);
-  view.updateAnchor = true;
-  view.loop = false;
-  view.play();
-
-  const entity = ECS.entity.create();
-  ECS.component.add(Renderer({ view, layer: 'effect' }), entity);
-  ECS.component.add(Transform({ position }), entity);
-  view.onComplete = () => ECS.entity.remove(entity);
-
-  return entity;
-}
-
-function BulletView(textures: Texture[]) {
-  const bullet = new AnimatedSprite(textures);
-
-  bullet.scale.set(2);
-  bullet.updateAnchor = true;
-  bullet.animationSpeed = 0.5;
-  bullet.play();
-  bullet.position.y = -40;
-
-  return bullet;
-}
-
-type Props = {
-  view: Container;
-  velocity: Vec2;
-  shape: Circle;
-};
-function BulletEntity({ view, velocity, shape }: Props) {
-  const entity = ECS.entity.create();
-  ECS.component.add(Renderer({ view, layer: 'bullet' }), entity);
-  ECS.component.add(Transform({}), entity);
-  ECS.component.add(Velocity(velocity), entity);
-  ECS.component.add(
-    Collider({
-      layer: 'bullet',
-      shape,
-      onEnter: () => {
-        const { position } = ECS.component.get('transform', entity) as ITransform;
-        Impact(position);
-
-        ECS.entity.remove(entity);
-      },
-    }),
-    entity
-  );
-  // ECS.component.add(Debug(), entity);
-
-  return entity;
-}
-
 function Army() {
   const L1 = RES.get('spritesheet', 'MARION_BULLET_01') as Spritesheet;
   const L2 = RES.get('spritesheet', 'MARION_BULLET_02') as Spritesheet;
@@ -136,8 +67,8 @@ function Army() {
 
   function Level01() {
     return [
-      BulletEntity({
-        view: BulletView(L1.animations['marion_bullet_L1']),
+      Bullet({
+        textures: L1.animations['marion_bullet_L1'],
         velocity: [0, -1 * speed],
         shape: { radius: 10, position: [0, 5] },
       }),
@@ -146,8 +77,8 @@ function Army() {
 
   function Level02() {
     return [
-      BulletEntity({
-        view: BulletView(L2.animations['marion_bullet_L2']),
+      Bullet({
+        textures: L2.animations['marion_bullet_L2'],
         velocity: [0, -1 * speed],
         shape: { radius: 15, position: [0, 5] },
       }),
@@ -156,18 +87,18 @@ function Army() {
 
   function Level03() {
     return [
-      BulletEntity({
-        view: BulletView(L3.animations['marion_bullet_L_L1']),
+      Bullet({
+        textures: L3.animations['marion_bullet_L_L1'],
         velocity: mul(dir(Math.PI / 12), [-1 * speed, -1 * speed]),
         shape: { radius: 10, position: [-2, 5] },
       }),
-      BulletEntity({
-        view: BulletView(L1.animations['marion_bullet_L1']),
+      Bullet({
+        textures: L1.animations['marion_bullet_L1'],
         velocity: [0, -1 * speed],
         shape: { radius: 10, position: [0, 5] },
       }),
-      BulletEntity({
-        view: BulletView(L3.animations['marion_bullet_R_L1']),
+      Bullet({
+        textures: L3.animations['marion_bullet_R_L1'],
         velocity: mul(dir(Math.PI / 12), [1 * speed, -1 * speed]),
         shape: { radius: 10, position: [2, 5] },
       }),
@@ -176,18 +107,18 @@ function Army() {
 
   function Level04() {
     return [
-      BulletEntity({
-        view: BulletView(L4.animations['marion_bullet_L_L2']),
+      Bullet({
+        textures: L4.animations['marion_bullet_L_L2'],
         velocity: mul(dir(Math.PI / 12), [-1 * speed, -1 * speed]),
         shape: { radius: 10, position: [-2, 5] },
       }),
-      BulletEntity({
-        view: BulletView(L2.animations['marion_bullet_L2']),
+      Bullet({
+        textures: L2.animations['marion_bullet_L2'],
         velocity: [0, -1 * speed],
         shape: { radius: 15, position: [0, 5] },
       }),
-      BulletEntity({
-        view: BulletView(L4.animations['marion_bullet_R_L2']),
+      Bullet({
+        textures: L4.animations['marion_bullet_R_L2'],
         velocity: mul(dir(Math.PI / 12), [1 * speed, -1 * speed]),
         shape: { radius: 10, position: [2, 5] },
       }),

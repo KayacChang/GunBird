@@ -16,6 +16,8 @@ export function MovementSystem(): ISystem {
         const [mx, my] = vector;
         const [x, y] = transform.position;
         transform.position = [x + mx, y + my];
+
+        ECS.component.remove('movement', entity);
       });
     },
   };
