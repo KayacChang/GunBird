@@ -1,4 +1,4 @@
-import { Application, Container, Sprite, Texture } from 'pixi.js';
+import { Application, Container } from 'pixi.js';
 import RES from '../resources';
 import {
   RenderSystem,
@@ -13,24 +13,10 @@ import {
   VelocitySystem,
 } from '../systems';
 import ECS from '@kayac/ecs.js';
-import { ITransform, Renderer, Velocity, Transform } from '../components';
-import Enemy from './enemy';
+import { ITransform } from '../components';
+import Enemy from '../models/enemy';
 import { Trump_Airship, Marion } from '../models';
-
-function Stage(app: Application) {
-  const texture = RES.get('texture', 'BG_CASTLE') as Texture;
-  const background = new Sprite(texture);
-
-  background.anchor.y = 1;
-
-  const ratio = app.screen.width / background.width;
-  background.scale.set(ratio);
-
-  const entity = ECS.entity.create();
-  ECS.component.add(Renderer({ view: background, layer: 'background' }), entity);
-  ECS.component.add(Transform({ position: [0, app.screen.height] }), entity);
-  ECS.component.add(Velocity([0, 1]), entity);
-}
+import Stage from './stage';
 
 function init(app: Application) {
   Marion(app);
