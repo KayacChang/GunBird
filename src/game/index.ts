@@ -15,27 +15,26 @@ import {
 } from '../systems';
 import ECS from '@kayac/ecs.js';
 import { ITransform } from '../components';
-import Enemy from '../models/enemy';
-import { Trump_Airship, Marion } from '../models';
+import { Trump_Airship, Marion } from '../entities';
 import Stage from './stage';
 
 function init(app: Application) {
   Marion(app);
 
   {
-    const enemy = Enemy(Trump_Airship());
+    const enemy = Trump_Airship();
     const transform = ECS.component.get('transform', enemy) as ITransform;
     transform.position = [app.screen.width * (1 / 4), app.screen.height / 4];
   }
 
   {
-    const enemy = Enemy(Trump_Airship());
+    const enemy = Trump_Airship();
     const transform = ECS.component.get('transform', enemy) as ITransform;
     transform.position = [app.screen.width * (2 / 4), app.screen.height / 4];
   }
 
   {
-    const enemy = Enemy(Trump_Airship());
+    const enemy = Trump_Airship();
     const transform = ECS.component.get('transform', enemy) as ITransform;
     transform.position = [app.screen.width * (3 / 4), app.screen.height / 4];
   }

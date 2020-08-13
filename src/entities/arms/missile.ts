@@ -1,20 +1,9 @@
-import RES from '../../resources';
 import ECS, { IEntity } from '@kayac/ecs.js';
-import { Texture, Sprite } from 'pixi.js';
+import { DisplayObject } from 'pixi.js';
 import { Renderer, Transform, Collider, IRenderer, ITransform, RigidBody } from '../../components';
 import { Circle } from '../../constants';
 import { Trace } from '../../components/trace';
 import { sub, magnitude } from '../../functions';
-
-function View() {
-  const texture = RES.get('texture', 'MARION_MISSILE') as Texture;
-
-  const missile = new Sprite(texture);
-  missile.anchor.set(0.5);
-  missile.scale.set(2);
-
-  return missile;
-}
 
 function findNearestEnemy(entity: IEntity) {
   const enemies = ECS.entity.query('renderer').filter((entity) => {
@@ -39,13 +28,15 @@ function findNearestEnemy(entity: IEntity) {
 }
 
 type Props = {
+  speed: number;
+  rotateSpeed: number;
   shape: Circle;
+  view: DisplayObject;
 };
-export default function Missile({ shape }: Props) {
-  const speed = 10;
+export default function Missile({ speed, rotateSpeed, shape, view }: Props) {
   const entity = ECS.entity.create();
 
-  ECS.component.add(Renderer({ view: View(), layer: 'bullet' }), entity);
+  ECS.component.add(Renderer({ view, layer: 'bullet' }), entity);
   ECS.component.add(Transform({}), entity);
   ECS.component.add(
     Collider({
@@ -57,22 +48,14 @@ export default function Missile({ shape }: Props) {
   );
 
   const target = findNearestEnemy(entity);
-  if (target) {
-    ECS.component.add(RigidBody({}), entity);
-
-    ECS.component.add(
-      Trace({
-        target,
-        speed,
-        rotateSpeed: Math.PI / 2,
-      }),
-      entity
-    );
-  } else {
+  if (!target) {
     ECS.component.add(RigidBody({ velocity: [0, -1 * speed] }), entity);
+
+    return entity;
   }
 
-  // ECS.component.add(Debug(), entity);
+  ECS.component.add(RigidBody({}), entity);
+  ECS.component.add(Trace({ target, speed, rotateSpeed }), entity);
 
   return entity;
 }

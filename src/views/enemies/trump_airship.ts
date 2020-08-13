@@ -5,7 +5,7 @@ import { nextFrame } from '../../functions';
 import { Vec2 } from '../../constants';
 import { Renderer, Transform } from '../../components';
 
-export default function Trump_Airship() {
+export function Trump_Airship() {
   const it = new Container();
 
   const texture = RES.get('spritesheet', 'BALLOON') as Spritesheet;
