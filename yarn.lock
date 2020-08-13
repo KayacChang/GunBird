@@ -1315,10 +1315,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@kayac/ecs.js@^0.2.8":
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/@kayac/ecs.js/-/ecs.js-0.2.8.tgz#ea4176aef4d0f15879f5bbb31465a0ba773e760f"
-  integrity sha512-gaAVNGj37iIVon2Iyi+O+0LhhT/tO2D8Nj47Zq5AIL6THMlIircfe3To0tDNAOoBQEWpaf+eyWcKJg9mKB1/8g==
+"@kayac/ecs.js@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@kayac/ecs.js/-/ecs.js-0.3.1.tgz#f4771c8c6fea07ac3ae3897a821a28844b0e103b"
+  integrity sha512-ZyqcL44WocyubFc9oy/jlNhZ6TTTLiq+BY6NB2wTDMPQ8Oglz2FDN+8rTZL9sq5x7ylrws4aI5nRzIoHHfhv+A==
   dependencies:
     uuid "^8.3.0"
 

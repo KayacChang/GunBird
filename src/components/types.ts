@@ -27,9 +27,10 @@ export interface ISpeed extends IComponent {
   value: number;
 }
 
-export interface IVelocity extends IComponent {
-  id: 'velocity';
-  value: Vec2;
+export interface IRigidBody extends IComponent {
+  id: 'rigid_body';
+  velocity: Vec2;
+  angularVelocity: number;
 }
 
 export interface IShoot extends IComponent {
@@ -71,4 +72,11 @@ export interface IStatus extends IComponent {
 export interface IPickup extends IComponent {
   id: 'pickup';
   type: 'powerup';
+}
+
+export interface ITrace extends IComponent {
+  id: 'trace';
+  target: IEntity;
+  speed: number;
+  rotateSpeed: number;
 }

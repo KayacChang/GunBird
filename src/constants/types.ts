@@ -5,7 +5,8 @@ export interface Size {
   height: number;
 }
 
-export type Vec2 = Pair;
+export type Vec2 = [number, number];
+export type Vec3 = [number, number, number];
 
 export interface Geometry {
   position: Vec2;

@@ -5,6 +5,7 @@ import { Application, Spritesheet, Container, AnimatedSprite } from 'pixi.js';
 import { Circle } from '../../constants';
 import { clamp, mul, dir } from '../../functions';
 import Bullet from '../bullet';
+import Missile from '../missile';
 
 export default function Character(app: Application) {
   const texture = RES.get('spritesheet', 'MARION_IDLE') as Spritesheet;
@@ -67,11 +68,14 @@ function Army() {
 
   function Level01() {
     return [
-      Bullet({
-        textures: L1.animations['marion_bullet_L1'],
-        velocity: [0, -1 * speed],
-        shape: { radius: 10, position: [0, 5] },
+      Missile({
+        shape: { radius: 15, position: [0, 0] },
       }),
+      // Bullet({
+      //   textures: L1.animations['marion_bullet_L1'],
+      //   velocity: [0, -1 * speed],
+      //   shape: { radius: 10, position: [0, 5] },
+      // }),
     ];
   }
 

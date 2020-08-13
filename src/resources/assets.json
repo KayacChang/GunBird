@@ -20,6 +20,10 @@
     "url": "assets/characters/marion/level_04.json"
   },
   {
+    "name": "MARION_MISSILE",
+    "url": "assets/characters/marion/star.png"
+  },
+  {
     "name": "BG_CASTLE",
     "url": "assets/background/bg_castle.png"
   },

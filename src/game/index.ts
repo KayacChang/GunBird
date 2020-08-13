@@ -10,7 +10,8 @@ import {
   BoundarySystem,
   DebugSystem,
   AreaObserveSystem,
-  VelocitySystem,
+  RigidBodySystem,
+  TraceSystem,
 } from '../systems';
 import ECS from '@kayac/ecs.js';
 import { ITransform } from '../components';
@@ -49,7 +50,8 @@ export default async function main(app: Application) {
 
   ECS.system.add(ControlSystem());
   ECS.system.add(ShootSystem(app));
-  ECS.system.add(VelocitySystem());
+  ECS.system.add(TraceSystem());
+  ECS.system.add(RigidBodySystem());
   ECS.system.add(MovementSystem());
   ECS.system.add(CollisionSystem(['player', 'enemy', 'bullet', 'pickup']));
   ECS.system.add(BoundarySystem());

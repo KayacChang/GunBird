@@ -1,5 +1,5 @@
 import RES from '../resources';
-import { Renderer, Collider, Transform, ITransform, Velocity } from '../components';
+import { Renderer, Collider, Transform, ITransform, RigidBody } from '../components';
 import ECS from '@kayac/ecs.js';
 import { AnimatedSprite, Texture, Spritesheet } from 'pixi.js';
 import { Circle, Vec2 } from '../constants';
@@ -41,7 +41,7 @@ export default function Bullet({ textures, velocity, shape }: Props) {
   const entity = ECS.entity.create();
   ECS.component.add(Renderer({ view: BulletView(textures), layer: 'bullet' }), entity);
   ECS.component.add(Transform({}), entity);
-  ECS.component.add(Velocity(velocity), entity);
+  ECS.component.add(RigidBody({ velocity }), entity);
   ECS.component.add(
     Collider({
       layer: 'bullet',
