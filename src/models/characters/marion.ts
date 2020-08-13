@@ -1,11 +1,21 @@
 import RES from '../../resources';
-import { Renderer, Control, Speed, Collider, Transform, Boundary, Shoot, IPickup, IShoot } from '../../components';
+import {
+  Renderer,
+  Control,
+  Speed,
+  Collider,
+  Transform,
+  Boundary,
+  IPickup,
+  Armament,
+  IArmament,
+} from '../../components';
 import ECS from '@kayac/ecs.js';
 import { Application, Spritesheet, Container, AnimatedSprite } from 'pixi.js';
 import { Circle } from '../../constants';
 import { clamp, mul, dir } from '../../functions';
-import Bullet from '../bullet';
-import Missile from '../missile';
+import Bullet from '../arms/bullet';
+import Missile from '../arms/missile';
 
 export default function Character(app: Application) {
   const texture = RES.get('spritesheet', 'MARION_IDLE') as Spritesheet;
@@ -34,8 +44,8 @@ export default function Character(app: Application) {
         colliding.forEach((collide) => {
           const pickup = ECS.component.get('pickup', collide) as IPickup;
           if (pickup && pickup.type === 'powerup') {
-            const shoot = ECS.component.get('shoot', entity) as IShoot;
-            shoot.level = clamp(shoot.level + 1, 0, 4);
+            const armament = ECS.component.get('armament', entity) as IArmament;
+            armament.level = clamp(armament.level + 1, 0, 4);
 
             ECS.entity.remove(collide);
           }
@@ -44,7 +54,52 @@ export default function Character(app: Application) {
     }),
     entity
   );
-  ECS.component.add(Shoot({ fireRate: 8, army: Army() }), entity);
+
+  const vulcan = Vulcan();
+  const magicStar = MagicStar();
+
+  ECS.component.add(
+    Armament([
+      // Level 01
+      [
+        {
+          fireRate: 8,
+          fire: vulcan.Level01,
+        },
+      ],
+      // Level 02
+      [
+        {
+          fireRate: 8,
+          fire: vulcan.Level02,
+        },
+      ],
+      // Level 03
+      [
+        {
+          fireRate: 8,
+          fire: vulcan.Level03,
+        },
+        {
+          fireRate: 64,
+          fire: magicStar.Level01,
+        },
+      ],
+      // Level 04
+      [
+        {
+          fireRate: 8,
+          fire: vulcan.Level04,
+        },
+        {
+          fireRate: 16,
+          fire: magicStar.Level02,
+        },
+      ],
+    ]),
+    entity
+  );
+
   ECS.component.add(Transform({ position: [app.screen.width / 2, app.screen.height / 2] }), entity);
   ECS.component.add(
     Boundary({
@@ -58,7 +113,7 @@ export default function Character(app: Application) {
   return entity;
 }
 
-function Army() {
+function Vulcan() {
   const L1 = RES.get('spritesheet', 'MARION_BULLET_01') as Spritesheet;
   const L2 = RES.get('spritesheet', 'MARION_BULLET_02') as Spritesheet;
   const L3 = RES.get('spritesheet', 'MARION_BULLET_03') as Spritesheet;
@@ -68,14 +123,11 @@ function Army() {
 
   function Level01() {
     return [
-      Missile({
-        shape: { radius: 15, position: [0, 0] },
+      Bullet({
+        textures: L1.animations['marion_bullet_L1'],
+        velocity: [0, -1 * speed],
+        shape: { radius: 10, position: [0, 5] },
       }),
-      // Bullet({
-      //   textures: L1.animations['marion_bullet_L1'],
-      //   velocity: [0, -1 * speed],
-      //   shape: { radius: 10, position: [0, 5] },
-      // }),
     ];
   }
 
@@ -129,5 +181,33 @@ function Army() {
     ];
   }
 
-  return (level: number) => [Level01, Level02, Level03, Level04][level];
+  return {
+    Level01,
+    Level02,
+    Level03,
+    Level04,
+  };
+}
+
+function MagicStar() {
+  function Level01() {
+    return [
+      Missile({
+        shape: { radius: 15, position: [0, 0] },
+      }),
+    ];
+  }
+
+  function Level02() {
+    return [
+      Missile({
+        shape: { radius: 15, position: [0, 0] },
+      }),
+    ];
+  }
+
+  return {
+    Level01,
+    Level02,
+  };
 }

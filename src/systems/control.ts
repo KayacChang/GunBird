@@ -1,5 +1,5 @@
 import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
-import { ISpeed, IShoot, ITransform } from '../components';
+import { ISpeed, ITransform, IArmament } from '../components';
 import { Vec2 } from '../constants';
 import { normalize } from '../functions';
 
@@ -26,7 +26,7 @@ export function ControlSystem(): ISystem {
   return {
     id: ControlSystem.name,
 
-    filter: ['control', 'speed', 'transform', 'shoot'],
+    filter: ['control', 'speed', 'transform', 'armament'],
 
     update(delta: number, entities: IEntity[]) {
       //
@@ -40,8 +40,8 @@ export function ControlSystem(): ISystem {
         const [x, y] = transform.position;
         transform.position = [x + mx, y + my];
 
-        const shoot = ECS.component.get('shoot', entity) as IShoot;
-        shoot.fire = keys.has(' ');
+        const armament = ECS.component.get('armament', entity) as IArmament;
+        armament.fire = keys.has(' ');
       });
     },
   };

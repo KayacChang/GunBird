@@ -3,7 +3,7 @@ export * from './transform';
 export * from './control';
 export * from './movement';
 export * from './rigidbody';
-export * from './shoot';
+export * from './armament';
 export * from './collision';
 export * from './debug';
 export * from './boundary';

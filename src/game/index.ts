@@ -5,7 +5,7 @@ import {
   TransformSystem,
   ControlSystem,
   MovementSystem,
-  ShootSystem,
+  ArmamentSystem,
   CollisionSystem,
   BoundarySystem,
   DebugSystem,
@@ -49,7 +49,7 @@ export default async function main(app: Application) {
   init(app);
 
   ECS.system.add(ControlSystem());
-  ECS.system.add(ShootSystem(app));
+  ECS.system.add(ArmamentSystem(app));
   ECS.system.add(TraceSystem());
   ECS.system.add(RigidBodySystem());
   ECS.system.add(MovementSystem());

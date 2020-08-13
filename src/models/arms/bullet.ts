@@ -1,8 +1,8 @@
-import RES from '../resources';
-import { Renderer, Collider, Transform, ITransform, RigidBody } from '../components';
+import RES from '../../resources';
+import { Renderer, Collider, Transform, ITransform, RigidBody } from '../../components';
 import ECS from '@kayac/ecs.js';
 import { AnimatedSprite, Texture, Spritesheet } from 'pixi.js';
-import { Circle, Vec2 } from '../constants';
+import { Circle, Vec2 } from '../../constants';
 
 function BulletView(textures: Texture[]) {
   const bullet = new AnimatedSprite(textures);

@@ -1,28 +1,22 @@
 import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
-import { ITransform, IShoot } from '../components/types';
+import { ITransform, IArmament } from '../components/types';
 import { AreaListener } from '../components';
 import { Application } from 'pixi.js';
 
-export function ShootSystem(app: Application): ISystem {
+export function ArmamentSystem(app: Application): ISystem {
   return {
-    id: ShootSystem.name,
+    id: ArmamentSystem.name,
 
-    filter: ['transform', 'shoot'],
+    filter: ['armament', 'transform'],
 
     update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
-        const shoot = ECS.component.get('shoot', entity) as IShoot;
-
-        shoot.coldDown = Math.max(0, shoot.coldDown - delta);
-        if (shoot.coldDown > 0 || !shoot.fire) {
-          return;
-        }
+        const { level, arms, fire } = ECS.component.get('armament', entity) as IArmament;
 
         const transform = ECS.component.get('transform', entity) as ITransform;
 
-        const bullets = shoot.bullet();
-        bullets.forEach((bullet) => {
+        function init(bullet: IEntity) {
           ECS.component.add(
             AreaListener({
               rect: { position: [0, 0], size: [app.screen.width, app.screen.height] },
@@ -33,9 +27,19 @@ export function ShootSystem(app: Application): ISystem {
 
           const bulletTransform = ECS.component.get('transform', bullet) as ITransform;
           bulletTransform.position = transform.position;
-        });
+        }
 
-        shoot.coldDown = shoot.fireRate;
+        arms[level].forEach((weapon) => {
+          weapon.coldDown -= delta;
+
+          if (weapon.coldDown > 0 || !fire) {
+            return;
+          }
+
+          weapon.fire().forEach(init);
+
+          weapon.coldDown = weapon.fireRate;
+        });
       });
     },
   };

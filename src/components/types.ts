@@ -33,14 +33,6 @@ export interface IRigidBody extends IComponent {
   angularVelocity: number;
 }
 
-export interface IShoot extends IComponent {
-  fireRate: number;
-  coldDown: number;
-  fire: boolean;
-  level: number;
-  bullet: () => IEntity[];
-}
-
 export interface IBoundary extends IComponent {
   id: 'boundary';
   rect: Rect;
@@ -79,4 +71,17 @@ export interface ITrace extends IComponent {
   target: IEntity;
   speed: number;
   rotateSpeed: number;
+}
+
+export interface IArmament extends IComponent {
+  id: 'armament';
+  fire: boolean;
+  level: number;
+  arms: IWeapon[][];
+}
+
+export interface IWeapon {
+  coldDown: number;
+  fireRate: number;
+  fire: () => IEntity[];
 }

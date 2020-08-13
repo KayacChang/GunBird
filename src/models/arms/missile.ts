@@ -1,10 +1,10 @@
-import RES from '../resources';
+import RES from '../../resources';
 import ECS, { IEntity } from '@kayac/ecs.js';
 import { Texture, Sprite } from 'pixi.js';
-import { Renderer, Transform, Collider, IRenderer, ITransform, RigidBody } from '../components';
-import { Circle } from '../constants';
-import { Trace } from '../components/trace';
-import { sub, magnitude } from '../functions';
+import { Renderer, Transform, Collider, IRenderer, ITransform, RigidBody } from '../../components';
+import { Circle } from '../../constants';
+import { Trace } from '../../components/trace';
+import { sub, magnitude } from '../../functions';
 
 function View() {
   const texture = RES.get('texture', 'MARION_MISSILE') as Texture;
