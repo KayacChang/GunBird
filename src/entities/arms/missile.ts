@@ -1,9 +1,9 @@
 import ECS, { IEntity } from '@kayac/ecs.js';
 import { DisplayObject } from 'pixi.js';
 import { Renderer, Transform, Collider, IRenderer, ITransform, RigidBody } from '../../components';
-import { Circle, Vec2 } from '../../constants';
+import { Circle } from '../../constants';
 import { Trace } from '../../components/trace';
-import { sub, magnitude } from '../../functions';
+import { sub, mag, Vec2 } from '@kayac/vec2';
 
 function findNearestEnemy(entity: IEntity) {
   const enemies = ECS.entity.query('renderer').filter((entity) => {
@@ -20,8 +20,8 @@ function findNearestEnemy(entity: IEntity) {
     const compare = ECS.component.get('transform', cur) as ITransform;
     const thisTransform = ECS.component.get('transform', entity) as ITransform;
 
-    const len1 = magnitude(sub(compare.position, thisTransform.position));
-    const len2 = magnitude(sub(nearest.position, thisTransform.position));
+    const len1 = mag(sub(compare.position, thisTransform.position));
+    const len2 = mag(sub(nearest.position, thisTransform.position));
 
     return len1 > len2 ? pre : cur;
   });

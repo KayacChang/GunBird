@@ -1,4 +1,4 @@
-import { Vec2 } from '../constants';
+import { Vec2 } from '@kayac/vec2';
 import { ITransform } from './types';
 
 type Props = {

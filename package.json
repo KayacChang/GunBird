@@ -10,6 +10,7 @@
   "private": true,
   "dependencies": {
     "@kayac/ecs.js": "^0.3.3",
+    "@kayac/vec2": "^1.1.9",
     "normalize.css": "^8.0.1",
     "pixi.js": "^5.2.4",
     "react": "^16.13.1",

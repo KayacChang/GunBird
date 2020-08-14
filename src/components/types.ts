@@ -1,6 +1,7 @@
 import { IComponent, IEntity } from '@kayac/ecs.js';
 import { DisplayObject } from 'pixi.js';
-import { Vec2, Rect, Geometry } from '../constants';
+import { Rect, Geometry } from '../constants';
+import { Vec2 } from '@kayac/vec2';
 
 export interface IRenderer extends IComponent {
   id: 'renderer';

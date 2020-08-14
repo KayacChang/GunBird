@@ -1,7 +1,7 @@
 import ECS, { ISystem, IEntity } from '@kayac/ecs.js';
 import { IRigidBody } from '../components/types';
 import { Movement } from '../components';
-import { div, mul, add } from '../functions';
+import { div, mul, add } from '@kayac/vec2';
 
 export function RigidBodySystem(): ISystem {
   return {

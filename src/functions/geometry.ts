@@ -1,5 +1,5 @@
 import { Rect, Geometry, Circle } from '../constants';
-import { isVector2 } from './vector';
+import { isVec2 } from '@kayac/vec2';
 
 export function isCircle(arg: Geometry): arg is Circle {
   const test = arg as Circle;
@@ -10,5 +10,5 @@ export function isCircle(arg: Geometry): arg is Circle {
 export function isRect(arg: Geometry): arg is Rect {
   const test = arg as Rect;
 
-  return test.size && isVector2(test.size);
+  return test.size && isVec2(test.size);
 }

@@ -1,5 +1,5 @@
 import { IRigidBody } from './types';
-import { Vec2 } from '../constants';
+import { Vec2 } from '@kayac/vec2';
 
 type Props = {
   velocity?: Vec2;

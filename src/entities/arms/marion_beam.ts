@@ -1,4 +1,4 @@
-import { mul, dir } from '../../functions';
+import { mul, dir } from '@kayac/vec2';
 import Bullet from './bullet';
 import * as view from '../../views';
 import ECS, { IEntity } from '@kayac/ecs.js';

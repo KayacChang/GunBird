@@ -2,7 +2,7 @@ import Missile from './missile';
 import * as view from '../../views';
 import ECS, { IEntity } from '@kayac/ecs.js';
 import { ITransform } from '../../components';
-import { add, rotate, mul } from '../../functions';
+import { add, rotate, mul } from '@kayac/vec2';
 
 export function MagicStar(entity: IEntity) {
   const transform = ECS.component.get('transform', entity) as ITransform;

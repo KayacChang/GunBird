@@ -2,10 +2,11 @@ import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
 import { ICollider, ITransform, Renderer, Transform } from '../components';
 import { isCircle } from '../functions';
 import { Graphics } from 'pixi.js';
-import { Circle, Geometry, Vec2 } from '../constants';
+import { Circle, Geometry } from '../constants';
+import { Vec2, vec2 } from '@kayac/vec2';
 
 function drawCircle({ position, radius }: Circle) {
-  const [x, y] = position;
+  const [x, y] = vec2(position);
 
   const graphic = new Graphics();
   graphic.beginFill(0xffffff);

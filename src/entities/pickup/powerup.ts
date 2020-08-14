@@ -1,7 +1,8 @@
 import ECS from '@kayac/ecs.js';
 import { Renderer, Collider, Transform, Pickup } from '../../components';
-import { Circle, Vec2 } from '../../constants';
+import { Circle } from '../../constants';
 import { DisplayObject } from 'pixi.js';
+import { Vec2 } from '@kayac/vec2';
 
 export function PowerUp(view: DisplayObject, position: Vec2) {
   const entity = ECS.entity.create();

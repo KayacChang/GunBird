@@ -2,8 +2,8 @@ import { Container, Spritesheet, AnimatedSprite, Sprite } from 'pixi.js';
 import ECS from '@kayac/ecs.js';
 import RES from '../../resources';
 import { nextFrame } from '../../functions';
-import { Vec2 } from '../../constants';
 import { Renderer, Transform } from '../../components';
+import { Vec2 } from '@kayac/vec2';
 
 export function Trump_Airship() {
   const it = new Container();

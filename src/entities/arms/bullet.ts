@@ -1,7 +1,8 @@
 import { Renderer, Collider, Transform, ITransform, RigidBody } from '../../components';
 import ECS from '@kayac/ecs.js';
 import { AnimatedSprite } from 'pixi.js';
-import { Circle, Vec2 } from '../../constants';
+import { Circle } from '../../constants';
+import { Vec2 } from '@kayac/vec2';
 
 function Impact(view: AnimatedSprite, position: Vec2) {
   const entity = ECS.entity.create();

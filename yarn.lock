@@ -1322,6 +1322,11 @@
   dependencies:
     uuid "^8.3.0"
 
+"@kayac/vec2@^1.1.9":
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/@kayac/vec2/-/vec2-1.1.9.tgz#654814f584f140c0d2b228e751e7af1a1965f5ec"
+  integrity sha512-+jzx8QuKGjShr0o2B6EMlp7p42lcuVeXwAZKFpOLRtE1iV5WbG6VyIUi0Rj4zMGUbc97aERuC+gdON4EcwwDVg==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

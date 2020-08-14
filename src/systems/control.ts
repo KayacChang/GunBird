@@ -1,7 +1,6 @@
 import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
 import { ISpeed, ITransform, IArmament } from '../components';
-import { Vec2 } from '../constants';
-import { normalize } from '../functions';
+import { normal, Vec2, vec2 } from '@kayac/vec2';
 
 function KeyBoard() {
   const keys = new Set<string>();
@@ -36,8 +35,8 @@ export function ControlSystem(): ISystem {
         const { value } = ECS.component.get('speed', entity) as ISpeed;
         const transform = ECS.component.get('transform', entity) as ITransform;
 
-        const [mx, my] = normalize(maptoDir(keys)).map((dv) => dv * value * delta);
-        const [x, y] = transform.position;
+        const [mx, my] = normal(maptoDir(keys)).map((dv) => dv * value * delta);
+        const [x, y] = vec2(transform.position);
         transform.position = [x + mx, y + my];
 
         const armament = ECS.component.get('armament', entity) as IArmament;
