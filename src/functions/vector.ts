@@ -44,6 +44,10 @@ export function sub([x1, y1]: Vec2, [x2, y2]: Vec2): Vec2 {
   return [x1 - x2, y1 - y2];
 }
 
+export function div([a1, a2]: Vec2, scaler: number): Vec2 {
+  return [a1 / scaler, a2 / scaler];
+}
+
 export function cross([a1, a2, a3]: Vec3, [b1, b2, b3]: Vec3): Vec3 {
   return [a2 * b3 - a3 * b2, a3 * b1 - a1 * b3, a1 * b2 - a2 * b1];
 }

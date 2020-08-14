@@ -28,13 +28,12 @@ function findNearestEnemy(entity: IEntity) {
 }
 
 type Props = {
-  speed: number;
-  rotateSpeed: number;
+  force: Vec2;
   shape: Circle;
   view: DisplayObject;
   position: Vec2;
 };
-export default function Missile({ speed, rotateSpeed, shape, view, position }: Props) {
+export default function Missile({ force, shape, view, position }: Props) {
   const entity = ECS.entity.create();
 
   ECS.component.add(Renderer({ view, layer: 'bullet' }), entity);
@@ -48,15 +47,12 @@ export default function Missile({ speed, rotateSpeed, shape, view, position }: P
     entity
   );
 
+  ECS.component.add(RigidBody({ force }), entity);
+
   const target = findNearestEnemy(entity);
-  if (!target) {
-    ECS.component.add(RigidBody({ velocity: [0, -1 * speed] }), entity);
-
-    return entity;
+  if (target) {
+    ECS.component.add(Trace({ target }), entity);
   }
-
-  ECS.component.add(RigidBody({}), entity);
-  ECS.component.add(Trace({ target, speed, rotateSpeed }), entity);
 
   return entity;
 }

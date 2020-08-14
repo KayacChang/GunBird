@@ -12,8 +12,7 @@ export function MagicStar(entity: IEntity) {
       Missile({
         position: add(transform.position, [-22, 0]),
         view: view.MagicStar(),
-        speed: 10,
-        rotateSpeed: Math.PI,
+        force: [-0.5, -0.5],
         shape: { radius: 15, position: [0, 0] },
       }),
     ];
@@ -24,8 +23,7 @@ export function MagicStar(entity: IEntity) {
       Missile({
         position: transform.position,
         view: view.MagicStar(),
-        speed: 10,
-        rotateSpeed: Math.PI,
+        force: [0, 1],
         shape: { radius: 15, position: [0, 0] },
       }),
     ];

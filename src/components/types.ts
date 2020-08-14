@@ -29,6 +29,8 @@ export interface ISpeed extends IComponent {
 
 export interface IRigidBody extends IComponent {
   id: 'rigid_body';
+  force: Vec2;
+  mass: number;
   velocity: Vec2;
   angularVelocity: number;
 }
@@ -69,8 +71,6 @@ export interface IPickup extends IComponent {
 export interface ITrace extends IComponent {
   id: 'trace';
   target: IEntity;
-  speed: number;
-  rotateSpeed: number;
 }
 
 export interface IArmament extends IComponent {
