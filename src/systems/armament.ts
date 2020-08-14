@@ -1,5 +1,5 @@
 import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
-import { ITransform, IArmament } from '../components/types';
+import { IArmament } from '../components/types';
 import { AreaListener } from '../components';
 import { Application } from 'pixi.js';
 
@@ -7,14 +7,12 @@ export function ArmamentSystem(app: Application): ISystem {
   return {
     id: ArmamentSystem.name,
 
-    filter: ['armament', 'transform'],
+    filter: ['armament'],
 
     update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
         const { level, arms, fire } = ECS.component.get('armament', entity) as IArmament;
-
-        const transform = ECS.component.get('transform', entity) as ITransform;
 
         function init(bullet: IEntity) {
           ECS.component.add(
@@ -24,9 +22,6 @@ export function ArmamentSystem(app: Application): ISystem {
             }),
             bullet
           );
-
-          const bulletTransform = ECS.component.get('transform', bullet) as ITransform;
-          bulletTransform.position = transform.position;
         }
 
         arms[level].forEach((weapon) => {

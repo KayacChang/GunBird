@@ -1,7 +1,7 @@
 import ECS, { IEntity } from '@kayac/ecs.js';
 import { DisplayObject } from 'pixi.js';
 import { Renderer, Transform, Collider, IRenderer, ITransform, RigidBody } from '../../components';
-import { Circle } from '../../constants';
+import { Circle, Vec2 } from '../../constants';
 import { Trace } from '../../components/trace';
 import { sub, magnitude } from '../../functions';
 
@@ -20,10 +20,10 @@ function findNearestEnemy(entity: IEntity) {
     const compare = ECS.component.get('transform', cur) as ITransform;
     const thisTransform = ECS.component.get('transform', entity) as ITransform;
 
-    return magnitude(sub(compare.position, thisTransform.position)) >
-      magnitude(sub(nearest.position, thisTransform.position))
-      ? cur
-      : pre;
+    const len1 = magnitude(sub(compare.position, thisTransform.position));
+    const len2 = magnitude(sub(nearest.position, thisTransform.position));
+
+    return len1 > len2 ? pre : cur;
   });
 }
 
@@ -32,12 +32,13 @@ type Props = {
   rotateSpeed: number;
   shape: Circle;
   view: DisplayObject;
+  position: Vec2;
 };
-export default function Missile({ speed, rotateSpeed, shape, view }: Props) {
+export default function Missile({ speed, rotateSpeed, shape, view, position }: Props) {
   const entity = ECS.entity.create();
 
   ECS.component.add(Renderer({ view, layer: 'bullet' }), entity);
-  ECS.component.add(Transform({}), entity);
+  ECS.component.add(Transform({ position }), entity);
   ECS.component.add(
     Collider({
       layer: 'bullet',

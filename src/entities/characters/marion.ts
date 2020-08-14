@@ -8,25 +8,25 @@ import * as view from '../../views';
 export function Marion(app: Application) {
   const entity = Character(app, view.Marion());
 
-  const beam = MarionBeam();
-  const magicStar = MagicStar();
+  const beam = MarionBeam(entity);
+  const magicStar = MagicStar(entity);
 
   ECS.component.add(
     Armament([
       // Level 01
-      [
-        {
-          fireRate: 8,
-          fire: beam.Level01,
-        },
-      ],
+      // [
+      //   {
+      //     fireRate: 8,
+      //     fire: beam.Level01,
+      //   },
+      // ],
       // Level 02
-      [
-        {
-          fireRate: 8,
-          fire: beam.Level02,
-        },
-      ],
+      // [
+      //   {
+      //     fireRate: 8,
+      //     fire: beam.Level02,
+      //   },
+      // ],
       // Level 03
       [
         {

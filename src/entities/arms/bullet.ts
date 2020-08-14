@@ -17,11 +17,12 @@ type Props = {
   impactView: AnimatedSprite;
   velocity: Vec2;
   shape: Circle;
+  position: Vec2;
 };
-export default function Bullet({ bulletView, impactView, velocity, shape }: Props) {
+export default function Bullet({ bulletView, impactView, velocity, shape, position }: Props) {
   const entity = ECS.entity.create();
   ECS.component.add(Renderer({ view: bulletView, layer: 'bullet' }), entity);
-  ECS.component.add(Transform({}), entity);
+  ECS.component.add(Transform({ position }), entity);
   ECS.component.add(RigidBody({ velocity }), entity);
   ECS.component.add(
     Collider({

@@ -36,6 +36,10 @@ export function mul(v: Vec2, obj: any): Vec2 {
   throw new Error(`Not support obj type`);
 }
 
+export function add([a1, a2]: Vec2, [b1, b2]: Vec2): Vec2 {
+  return [a1 + b1, a2 + b2];
+}
+
 export function sub([x1, y1]: Vec2, [x2, y2]: Vec2): Vec2 {
   return [x1 - x2, y1 - y2];
 }

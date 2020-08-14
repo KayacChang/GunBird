@@ -1,13 +1,19 @@
 import Missile from './missile';
 import * as view from '../../views';
+import ECS, { IEntity } from '@kayac/ecs.js';
+import { ITransform } from '../../components';
+import { add } from '../../functions';
 
-export function MagicStar() {
+export function MagicStar(entity: IEntity) {
+  const transform = ECS.component.get('transform', entity) as ITransform;
+
   function Level01() {
     return [
       Missile({
+        position: add(transform.position, [-22, 0]),
         view: view.MagicStar(),
         speed: 10,
-        rotateSpeed: Math.PI / 2,
+        rotateSpeed: Math.PI,
         shape: { radius: 15, position: [0, 0] },
       }),
     ];
@@ -16,9 +22,10 @@ export function MagicStar() {
   function Level02() {
     return [
       Missile({
+        position: transform.position,
         view: view.MagicStar(),
         speed: 10,
-        rotateSpeed: Math.PI / 2,
+        rotateSpeed: Math.PI,
         shape: { radius: 15, position: [0, 0] },
       }),
     ];
