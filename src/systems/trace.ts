@@ -1,10 +1,6 @@
 import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
 import { ITransform, ITrace, IRigidBody } from '../components/types';
-import { normalize, sub, cross, clamp } from '../functions';
-
-function lerp(x: number, y: number, t: number) {
-  return x * (1 - t) + y * t;
-}
+import { normalize, sub, cross, rotate } from '../functions';
 
 export function TraceSystem(): ISystem {
   return {
@@ -26,8 +22,9 @@ export function TraceSystem(): ISystem {
 
         const [ax, ay] = normalize(rigidBody.force);
         const [bx, by] = normalize(sub(targetTransform.position, thisTransform.position));
+        const [, , z] = cross([bx, by, 0], [ax, ay, 0]);
 
-        rigidBody.force = [lerp(ax, bx, clamp(0, 1, delta * 0.5)), lerp(ay, by, clamp(0, 1, delta * 0.5))];
+        rigidBody.force = rotate(rigidBody.force, -z * delta);
       });
     },
   };
