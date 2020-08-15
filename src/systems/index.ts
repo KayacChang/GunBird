@@ -1,5 +1,6 @@
 export * from './render';
 export * from './transform';
+export * from './input';
 export * from './control';
 export * from './movement';
 export * from './rigidbody';

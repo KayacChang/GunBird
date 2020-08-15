@@ -16,6 +16,8 @@ export interface ITransform extends IComponent {
 
 export interface IControl extends IComponent {
   id: 'control';
+  pressed: string[];
+  released: string[];
 }
 
 export interface IMovement extends IComponent {
@@ -76,13 +78,22 @@ export interface ITrace extends IComponent {
 
 export interface IArmament extends IComponent {
   id: 'armament';
+  hasCharged: number;
   fire: boolean;
   level: number;
-  arms: IWeapon[][];
+  arms: IVulcan[][];
+  charged: ICharged;
 }
 
 export interface IWeapon {
+  fire: () => IEntity[];
+}
+
+export interface ICharged extends IWeapon {
+  chargedTime: number;
+}
+
+export interface IVulcan extends IWeapon {
   coldDown: number;
   fireRate: number;
-  fire: () => IEntity[];
 }

@@ -1,7 +1,5 @@
 import { Vec2 } from '@kayac/vec2';
 
-export type Pair = [number, number];
-
 export interface Size {
   width: number;
   height: number;

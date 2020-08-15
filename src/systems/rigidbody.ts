@@ -1,7 +1,7 @@
 import ECS, { ISystem, IEntity } from '@kayac/ecs.js';
 import { IRigidBody } from '../components/types';
 import { Movement } from '../components';
-import { div, mul, add } from '@kayac/vec2';
+import { div, mul, add, vec2 } from '@kayac/vec2';
 
 export function RigidBodySystem(): ISystem {
   return {
@@ -22,7 +22,7 @@ export function RigidBodySystem(): ISystem {
           rigidBody.velocity = add(velocity, acceleration);
         }
 
-        const [vx, vy] = velocity;
+        const [vx, vy] = vec2(velocity);
         ECS.component.add(Movement([vx * delta, vy * delta]), entity);
       });
     },

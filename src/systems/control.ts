@@ -1,46 +1,39 @@
 import ECS, { IEntity, ISystem } from '@kayac/ecs.js';
-import { ISpeed, ITransform, IArmament } from '../components';
+import { IControl, IArmament, ISpeed, ITransform } from '../components';
+import { ACTION } from '../constants';
 import { normal, Vec2, vec2 } from '@kayac/vec2';
 
-function KeyBoard() {
-  const keys = new Set<string>();
-
-  document.addEventListener('keydown', ({ key }) => keys.add(key));
-  document.addEventListener('keyup', ({ key }) => keys.delete(key));
-
-  return () => keys;
-}
-
-function maptoDir(keys: Set<string>): Vec2 {
+function mapToDir(action: string[]): Vec2 {
   return [
-    //
-    Number(keys.has('d')) - Number(keys.has('a')),
-    Number(keys.has('s')) - Number(keys.has('w')),
+    Number(action.includes(ACTION.RIGHT)) - Number(action.includes(ACTION.LEFT)),
+    Number(action.includes(ACTION.DOWN)) - Number(action.includes(ACTION.UP)),
   ];
 }
 
 export function ControlSystem(): ISystem {
-  const getInputs = KeyBoard();
-
   return {
     id: ControlSystem.name,
 
-    filter: ['control', 'speed', 'transform', 'armament'],
+    filter: ['control', 'armament', 'speed', 'transform'],
 
     update(delta: number, entities: IEntity[]) {
       //
       entities.forEach((entity) => {
-        const keys = getInputs();
+        const { released, pressed } = ECS.component.get('control', entity) as IControl;
+        const armament = ECS.component.get('armament', entity) as IArmament;
+
+        if (pressed.includes(ACTION.SHOOT)) {
+          armament.hasCharged += delta;
+        }
+
+        armament.fire = released.includes(ACTION.SHOOT);
 
         const { value } = ECS.component.get('speed', entity) as ISpeed;
         const transform = ECS.component.get('transform', entity) as ITransform;
 
-        const [mx, my] = normal(maptoDir(keys)).map((dv) => dv * value * delta);
+        const [dx, dy] = normal(mapToDir(pressed));
         const [x, y] = vec2(transform.position);
-        transform.position = [x + mx, y + my];
-
-        const armament = ECS.component.get('armament', entity) as IArmament;
-        armament.fire = keys.has(' ');
+        transform.position = [x + dx * value * delta, y + dy * value * delta];
       });
     },
   };

@@ -35,3 +35,9 @@ export function MarionBeam(type: MarionBeamType) {
       return Bullet(L4.animations['marion_bullet_R_L2']);
   }
 }
+
+export function Pomme() {
+  const sheet = RES.get('spritesheet', 'MARION_CHARGED_SHOOT') as Spritesheet;
+
+  return Bullet(sheet.animations['pomme']);
+}

@@ -8,7 +8,6 @@ export default function Impact() {
   view.scale.set(1.5);
   view.updateAnchor = true;
   view.loop = false;
-  view.play();
 
   return view;
 }

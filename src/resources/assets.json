@@ -24,6 +24,10 @@
     "url": "assets/characters/marion/star.png"
   },
   {
+    "name": "MARION_CHARGED_SHOOT",
+    "url": "assets/characters/marion/charged_shoot.json"
+  },
+  {
     "name": "BG_CASTLE",
     "url": "assets/background/bg_castle.png"
   },

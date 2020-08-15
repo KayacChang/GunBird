@@ -1,5 +1,5 @@
 import { IControl } from './types';
 
 export function Control(): IControl {
-  return { id: 'control' };
+  return { id: 'control', pressed: [], released: [] };
 }

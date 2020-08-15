@@ -8,6 +8,7 @@ function Impact(view: AnimatedSprite, position: Vec2) {
   const entity = ECS.entity.create();
   ECS.component.add(Renderer({ view, layer: 'effect' }), entity);
   ECS.component.add(Transform({ position }), entity);
+  view.gotoAndPlay(0);
   view.onComplete = () => ECS.entity.remove(entity);
 
   return entity;

@@ -3,6 +3,7 @@ import RES from '../resources';
 import {
   RenderSystem,
   TransformSystem,
+  InputSystem,
   ControlSystem,
   MovementSystem,
   ArmamentSystem,
@@ -47,6 +48,7 @@ export default async function main(app: Application) {
 
   init(app);
 
+  ECS.system.add(InputSystem());
   ECS.system.add(ControlSystem());
   ECS.system.add(ArmamentSystem(app));
   ECS.system.add(TraceSystem());
