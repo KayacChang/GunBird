@@ -1,4 +1,4 @@
-import { mul, dir } from '@kayac/vec2';
+import { mul, dir, rotate } from '@kayac/vec2';
 import Bullet from './bullet';
 import * as view from '../../views';
 import ECS, { IEntity } from '@kayac/ecs.js';
@@ -39,7 +39,7 @@ export function MarionBeam(entity: IEntity) {
         position: transform.position,
         bulletView: view.MarionBeam('L1'),
         impactView: view.Impact(),
-        velocity: mul(dir(Math.PI / 12), [-1 * speed, -1 * speed]),
+        velocity: rotate([0, -1 * speed], (-1 * Math.PI) / 12),
         shape: { radius: 10, position: [-2, 5] },
       }),
       Bullet({
@@ -53,7 +53,7 @@ export function MarionBeam(entity: IEntity) {
         position: transform.position,
         bulletView: view.MarionBeam('R1'),
         impactView: view.Impact(),
-        velocity: mul(dir(Math.PI / 12), [1 * speed, -1 * speed]),
+        velocity: rotate([0, -1 * speed], Math.PI / 12),
         shape: { radius: 10, position: [2, 5] },
       }),
     ];
@@ -65,7 +65,7 @@ export function MarionBeam(entity: IEntity) {
         position: transform.position,
         bulletView: view.MarionBeam('L2'),
         impactView: view.Impact(),
-        velocity: mul(dir(Math.PI / 12), [-1 * speed, -1 * speed]),
+        velocity: rotate([0, -1 * speed], (-1 * Math.PI) / 12),
         shape: { radius: 10, position: [-2, 5] },
       }),
       Bullet({
@@ -79,7 +79,7 @@ export function MarionBeam(entity: IEntity) {
         position: transform.position,
         bulletView: view.MarionBeam('R2'),
         impactView: view.Impact(),
-        velocity: mul(dir(Math.PI / 12), [1 * speed, -1 * speed]),
+        velocity: rotate([0, -1 * speed], Math.PI / 12),
         shape: { radius: 10, position: [2, 5] },
       }),
     ];

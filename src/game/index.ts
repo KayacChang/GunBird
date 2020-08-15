@@ -62,8 +62,8 @@ export default async function main(app: Application) {
     ['background', new Container()],
     ['pickup', new Container()],
     ['enemy', new Container()],
-    ['player', new Container()],
     ['bullet', new Container()],
+    ['player', new Container()],
     ['effect', new Container()],
     ['debug', new Container()],
   ]);
