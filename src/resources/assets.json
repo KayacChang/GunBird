@@ -1,0 +1,50 @@
+[
+  {
+    "name": "MARION_IDLE",
+    "url": "assets/characters/marion/marion-idle.json"
+  },
+  {
+    "name": "MARION_BULLET_01",
+    "url": "assets/characters/marion/level_01.json"
+  },
+  {
+    "name": "MARION_BULLET_02",
+    "url": "assets/characters/marion/level_02.json"
+  },
+  {
+    "name": "MARION_BULLET_03",
+    "url": "assets/characters/marion/level_03.json"
+  },
+  {
+    "name": "MARION_BULLET_04",
+    "url": "assets/characters/marion/level_04.json"
+  },
+  {
+    "name": "MARION_MISSILE",
+    "url": "assets/characters/marion/star.png"
+  },
+  {
+    "name": "MARION_CHARGED_SHOOT",
+    "url": "assets/characters/marion/charged_shoot.json"
+  },
+  {
+    "name": "BG_CASTLE",
+    "url": "assets/background/bg_castle.png"
+  },
+  {
+    "name": "BALLOON",
+    "url": "assets/enemies/balloon/balloon.json"
+  },
+  {
+    "name": "BALLOON_EXPLOSION",
+    "url": "assets/enemies/balloon/explosion.json"
+  },
+  {
+    "name": "BULLET_IMPACT",
+    "url": "assets/effects/impact.json"
+  },
+  {
+    "name": "POWER_UP",
+    "url": "assets/pickup/powerup.json"
+  }
+]
